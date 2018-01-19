@@ -11,5 +11,5 @@ RDEPENDS_${PN} = "agl-service-audio-soundmanager"
 inherit cmake
 
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/staging/libsoundmanager.git;protocol=https;branch=${AGL_BRANCH}"
-SRCREV = "e920aae9f71c0823ab5754b2de8483e157368580"
+SRCREV = "f4dd1b50ef871116e304153e8d9acc296dcdb232"
 S = "${WORKDIR}/git"

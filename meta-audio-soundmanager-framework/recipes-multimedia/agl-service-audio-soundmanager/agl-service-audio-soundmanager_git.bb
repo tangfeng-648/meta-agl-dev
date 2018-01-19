@@ -15,5 +15,5 @@ RDEPENDS_${PN} = "audiomanager audiomanager-plugins"
 inherit cmake aglwgt
 
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/agl-service-soundmanager-2017;protocol=https;branch=${AGL_BRANCH}"
-SRCREV = "b1be03d9670f166af53f1d06275e2428e8c99779"
+SRCREV = "0fd8a3600fa44883bb43f86652e27136b75351da"
 S = "${WORKDIR}/git"
