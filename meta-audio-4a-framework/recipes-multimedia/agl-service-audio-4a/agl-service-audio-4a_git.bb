@@ -7,7 +7,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://Apache-2.0;md5=89aea4e17d99a7cacdbeed46a0096b10"
 
 SRC_URI = "gitsm://gerrit.automotivelinux.org/gerrit/apps/agl-service-audio-4a;protocol=https;branch=eel"
-SRCREV = "1888a208a2daacaabd28427bb519ce51ac283837"
+SRCREV = "6eec71ab901a67273cce7d8aa726ebb22238bb25"
 
 PV = "0.1+git${SRCPV}"
 S  = "${WORKDIR}/git"
