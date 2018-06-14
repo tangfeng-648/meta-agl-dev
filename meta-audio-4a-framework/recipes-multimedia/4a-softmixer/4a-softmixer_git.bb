@@ -6,10 +6,8 @@ SECTION     = "apps"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
-SRC_URI = "gitsm://github.com/iotbzh/4a-softmixer/;protocol=https;branch=hal-rc1-sandbox"
-
-SRCREV = "acfda0a2236ca70b18ad2e7a6ec1ef3192405aac"
-#SRCREV = "${AUTOREV}"
+SRC_URI = "gitsm://github.com/iotbzh/4a-softmixer/;protocol=https;branch=${AGL_BRANCH}"
+SRCREV = "e173f942334e741714ac45924554552b5511de1d"
 
 DEPENDS += "lua"
 
