@@ -22,7 +22,7 @@ SRC_URI = "\
     git://github.com/webosose/${PN};branch=@15.agl.flounder;protocol=https;rev=${SRCREV_chromium68} \
     git://github.com/webosose/v8;destsuffix=git/src/v8;rev=${SRCREV_v8} \
 "
-SRCREV_chromium68 = "5e7bce170f2dad766d7c6b30c6c87527e29ced19"
+SRCREV_chromium68 = "eca3bd2ef74093d1fabbd6bbcd4dd9e2ccefce4b"
 SRCREV_v8 = "f9a5f6866468097293e02fd0fec5fe297ecaecdc"
 
 # we don't include SRCPV in PV, so we have to manually include SRCREVs in do_fetch vardeps
