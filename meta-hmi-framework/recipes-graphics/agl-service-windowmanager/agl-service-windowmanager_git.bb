@@ -16,12 +16,9 @@ inherit cmake aglwgt
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/agl-service-windowmanager;protocol=https;branch=${AGL_BRANCH} \
            file://weston-ready.conf \
 "
-SRCREV = "fb861c2f05e5f49f4009d0d7c91101259f904f1d"
+SRCREV = "923df38d358f8971cf16cc78365adb2b45182bc5"
 PV = "1.0+git${SRCPV}"
 S = "${WORKDIR}/git"
-
-#If you would like to output log, uncomment out
-EXTRA_OECMAKE_append_agl-devel = " -DENABLE_DEBUG_OUTPUT=ON "
 
 do_install_append() {
     # Install systemd over-ride that adds a dependency on weston-ready
