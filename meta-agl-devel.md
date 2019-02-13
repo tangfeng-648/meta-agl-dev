@@ -1,15 +1,3 @@
-**WRITER NOTES:** This file is the README.md file from the meta-agl-devel
-repository.  You can clone the repository using the following:
-
-```
-git clone https://gerrit.automotivelinux.org/gerrit/AGL/meta-agl-devel
-```
-
-Right now, this file is the README.md file and I have renamed the original
-file from "flounder" is renamed to README.md.orig.  I don't know exactly
-what is good from the file so I am preserving it.
-
-
 ## Introduction
 
 The `meta-agl-devel` layer contains components that are being tested or
