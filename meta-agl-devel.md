@@ -24,10 +24,9 @@ The `meta-agl-devel` layer contains the following files and sub-layers:
 
 The following list provides a summary of these sub-layers:
 
-* `meta-agl-telemetry`: Provides a small proof-of-concept for an AGL
-  image for telemetry use-cases. The image is designed to be used
-  when a device requires restricted scope of responsibilites
-  (e.g. collecting vehicle telemetry).
+* `meta-agl-telemetry`: Provides the smallest AGL image.
+  The image is designed to be used when a device requires restricted
+  scope of responsibilites (e.g. collecting vehicle telemetry).
 
 * `meta-audio-4a-framework`: A collection of recipes used for the
   first integration of 4A (i.e. Advanced AGL Audio Architecture).
