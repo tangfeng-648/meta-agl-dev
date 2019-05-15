@@ -7,7 +7,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
 SRC_URI = "gitsm://gerrit.automotivelinux.org/gerrit/src/4a-softmixer.git;protocol=https;branch=${AGL_BRANCH}"
-SRCREV = "6c627f8650b88b19704dd4e513fe7fff701c00c1"
+SRCREV = "b5206132b6fb5b060acacaf2aee45841a7792a8c"
 
 DEPENDS += "lua liburcu"
 
