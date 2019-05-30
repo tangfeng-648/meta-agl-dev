@@ -31,8 +31,12 @@ The following list provides a summary of these sub-layers:
 * `meta-audio-4a-framework`: A collection of recipes used for the
   first integration of 4A (i.e. Advanced AGL Audio Architecture).
 
-  **NOTE:** Recipes from this layer will be integrated into the
-  `meta-agl` layer in the future.
+  <!--section-note-->
+  **NOTE:**
+
+  Recipes from this layer will be integrated into the
+ `meta-agl` layer in the future.
+  <!--end-section-note-->
 
 * `meta-audio-soundmanager-framework`: Supports the Soundmanager
   Audio Framework features, which maps to the `agl-audio-soundmanager-framework`
@@ -112,7 +116,7 @@ environment using the `aglsetup.sh` script.
 
 For information on how to use the `aglsetup.sh` script to initialize
 your build environment, see the
-"[Initializing Your Build Environment](../../../../getting_started/en/dev/reference/image-workflow-initialize-build-environment.html)"
+"[Initializing Your Build Environment](../getting_started/reference/getting-started/image-workflow-initialize-build-environment.html)"
 section.
 
 Once you have included the AGL feature, you can build your image.
@@ -133,7 +137,7 @@ environment using the `aglsetup.sh` script.
 
 For information on how to use the `aglsetup.sh` script to initialize
 your build environment, see the
-"[Initializing Your Build Environment](../../../../getting_started/en/dev/reference/image-workflow-initialize-build-environment.html)"
+"[Initializing Your Build Environment](../getting_started/reference/getting-started/image-workflow-initialize-build-environment.html)"
 section.
 
 Once you have included the AGL feature, you can build your image.
