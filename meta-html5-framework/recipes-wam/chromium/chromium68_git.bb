@@ -21,6 +21,7 @@ PROVIDES = "${BROWSER_APPLICATION}"
 SRC_URI = "\
     git://github.com/webosose/${PN};branch=@39.agl.guppy;protocol=https;rev=${SRCREV_chromium68} \
     git://github.com/webosose/v8;destsuffix=git/src/v8;rev=${SRCREV_v8} \
+    file://0001-libavcodec-Remove-dynamic-relocs-from-h264idct_neon..patch \
 "
 SRCREV_chromium68 = "259a8b56bc833956f3acd318b7f19b028277beda"
 SRCREV_v8 = "1e3af71f1ff3735e8a5b639c48dfca63a7b8a647"
