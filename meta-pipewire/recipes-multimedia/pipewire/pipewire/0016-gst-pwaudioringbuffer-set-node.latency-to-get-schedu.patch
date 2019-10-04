@@ -1,4 +1,4 @@
-From 851738e3c5970a699d2313dec1cfeedb9d051d83 Mon Sep 17 00:00:00 2001
+From 3af64cf4e1d33c33a9757c0f30c7de1068202540 Mon Sep 17 00:00:00 2001
 From: George Kiagiadakis <george.kiagiadakis@collabora.com>
 Date: Tue, 20 Aug 2019 18:33:35 +0300
 Subject: [PATCH] gst: pwaudioringbuffer: set node.latency to get scheduled
@@ -37,5 +37,5 @@ index b92b5feb..2314dd77 100644
  
    pw_thread_loop_lock (self->main_loop);
 -- 
-2.23.0.rc1
+2.23.0
 
