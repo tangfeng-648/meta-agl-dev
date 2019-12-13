@@ -19,7 +19,7 @@ DEPENDS = "dbus"
 PACKAGECONFIG ??= "\
     ${@bb.utils.filter('DISTRO_FEATURES', 'systemd', d)} \
     ${@bb.utils.filter('DISTRO_FEATURES', 'bluez5', d)} \
-    alsa audioconvert \
+    alsa audioconvert audiomixer \
     pipewire-alsa \
     gstreamer \
 "
@@ -31,11 +31,14 @@ PACKAGECONFIG[systemd] = "-Dsystemd=true,-Dsystemd=false,systemd"
 
 # SPA plugins
 PACKAGECONFIG[alsa] = "-Dalsa=true,-Dalsa=false,udev alsa-lib"
-PACKAGECONFIG[audioconvert] = "-Daudioconvert=true,-Daudioconvert=false,speexdsp"
+PACKAGECONFIG[audioconvert] = "-Daudioconvert=true,-Daudioconvert=false,"
+PACKAGECONFIG[audiomixer] = "-Daudiomixer=true,-Daudiomixer=false,"
 PACKAGECONFIG[audiotestsrc] = "-Daudiotestsrc=true,-Daudiotestsrc=false, "
 PACKAGECONFIG[bluez5] = "-Dbluez5=true,-Dbluez5=false,bluez5 sbc"
+PACKAGECONFIG[jack] = "-Djack=true,-Djack=false,jack"
 PACKAGECONFIG[v4l2] = "-Dv4l2=true,-Dv4l2=false,udev v4l-utils"
 PACKAGECONFIG[videotestsrc] = "-Dvideotestsrc=true,-Dvideotestsrc=false, "
+PACKAGECONFIG[vulkan] = "-Dvulkan=true,-Dvulkan=false,vulkan"
 
 # alsa plugin to redirect audio to pipewire
 PACKAGECONFIG[pipewire-alsa] = "-Dpipewire-alsa=true,-Dpipewire-alsa=false,alsa-lib"

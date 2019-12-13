@@ -7,56 +7,42 @@ SECTION     = "multimedia"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-SRC_URI = "file://wireplumber.conf.in"
+SRC_URI = "\
+    file://wireplumber.conf \
+    file://00-audio-sink.endpoint \
+    file://00-audio-source.endpoint \
+    file://00-default-input-audio.endpoint-link \
+    file://00-default-output-audio.endpoint-link \
+    file://00-stream-input-audio.endpoint \
+    file://00-stream-output-audio.endpoint \
+    file://01-hw00-audio-sink.endpoint \
+    file://01-hw00-audio-source.endpoint \
+    file://30-ak4613-audio-sink.endpoint \
+    file://30-ak4613-audio-source.endpoint \
+    file://30-dra7xx-audio-sink.endpoint \
+    file://30-dra7xx-audio-source.endpoint \
+    file://30-rpi3-audio-sink.endpoint \
+    file://40-fiberdyne-amp.endpoint \
+    file://40-microchip-mic.endpoint \
+    file://70-usb-audio-sink.endpoint \
+    file://70-usb-audio-source.endpoint \
+    file://bluealsa-input-audio.endpoint-link \
+    file://bluealsa-output-audio.endpoint-link \
+    file://capture.streams \
+    file://playback.streams \
+"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 
-#
-# For device names, any unique substring of the "endpoint" name is valid.
-# To list all endpoints:
-#  export XDG_RUNTIME_DIR=/run/user/1001
-#  pipewire-cli
-#  > connect pipewire-0
-#  > list-objects
-# ... and look for objects of type "PipeWire:Interface:Endpoint/0"
-#
-# For instance:
-#   id 269, parent 40, type PipeWire:Interface:Endpoint/0
-#           media.name = "USB Audio on WD15 Dock (hw:1,0 / node 5)"
-#           media.class = "Audio/Sink"
-#   id 270, parent 40, type PipeWire:Interface:Endpoint/0
-#           media.name = "USB Audio on WD15 Dock (hw:1,0 / node 7)"
-#           media.class = "Audio/Source"
-#
-# Audio/Sink endpoints are valid for playback
-# Audio/Source endpoints are valid for capture
-#
-# Wireplumber will first filter endpoints based on the media.class, depending
-# on whether the client is doing playback or capture and then it will look
-# for a sub-string match in the media.name
-#
-DEV_PLAYBACK = "hw:0,0"
-DEV_CAPTURE = "hw:0,0"
-
-DEV_PLAYBACK_dra7xx-evm = "DRA7xx-EVM"
-DEV_CAPTURE_dra7xx-evm = "DRA7xx-EVM"
-
-DEV_PLAYBACK_m3ulcb = "ak4613"
-DEV_CAPTURE_m3ulcb = "ak4613"
-
-DEV_PLAYBACK_h3ulcb = "ak4613"
-DEV_CAPTURE_h3ulcb = "ak4613"
-
-DEV_PLAYBACK_raspberrypi3 = "bcm2835 ALSA on bcm2835 ALSA"
-DEV_CAPTURE_raspberrypi3 = "hw:0,0"
-
 do_install_append() {
-    sed -e "s/PLAYBACK/${DEV_PLAYBACK}/" -e "s/CAPTURE/${DEV_CAPTURE}/" ${WORKDIR}/wireplumber.conf.in > ${WORKDIR}/wireplumber.conf
     install -d ${D}/${sysconfdir}/wireplumber/
     install -m 644 ${WORKDIR}/wireplumber.conf ${D}/${sysconfdir}/wireplumber/wireplumber.conf
+    install -m 644 ${WORKDIR}/*.endpoint ${D}/${sysconfdir}/wireplumber/
+    install -m 644 ${WORKDIR}/*.endpoint-link ${D}/${sysconfdir}/wireplumber/
+    install -m 644 ${WORKDIR}/*.streams ${D}/${sysconfdir}/wireplumber/
 }
 
 FILES_${PN} += "\
