@@ -40,3 +40,5 @@ EXTRA_OECMAKE += "-DAAC_HOME=${RECIPE_SYSROOT}/${AAC_PREFIX}"
 RDEPENDS_${PN} += "libcurl libopus libsqlite3"
 
 RPROVIDES_${PN} += "virtual/voiceagent"
+
+RDEPENDS_${PN} += "virtual/alexa-voiceagent-config"
