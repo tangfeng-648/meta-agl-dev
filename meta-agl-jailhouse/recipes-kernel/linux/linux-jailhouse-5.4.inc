@@ -1,8 +1,8 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/linux:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/linux:"
 
-SRC_URI_append = " file://jailhouse.cfg"
+SRC_URI:append = " file://jailhouse.cfg"
 
-SRC_URI_append = " \
+SRC_URI:append = " \
 file://0001-x86-jailhouse-Improve-setup-data-version-comparison.patch \
 file://0002-x86-jailhouse-Only-enable-platform-UARTs-if-availabl.patch \
 file://0003-jailhouse-Add-simple-debug-console-via-the-hyperviso.patch \
