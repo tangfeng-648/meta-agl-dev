@@ -1,4 +1,4 @@
-BBMULTICONFIG = "agl-container-guest"
+BBMULTICONFIG = "agl-container-guest agl-container-ivi"
 
 # Disable the meta-virtualization configuration support enabled by
 # agl-virt.  This should be revisited when upgrading past dunfell,
