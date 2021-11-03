@@ -15,7 +15,7 @@ PV = "0.12+git${SRCPV}"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-SRC_URI = "git://github.com/siemens/jailhouse \
+SRC_URI = "git://github.com/siemens/jailhouse;branch=master;protocol=https \
            file://0001-configs-arm64-Add-support-for-RPi4-with-more-than-1G.patch \
            "
 
