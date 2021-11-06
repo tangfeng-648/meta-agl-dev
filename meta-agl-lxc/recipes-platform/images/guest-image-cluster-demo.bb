@@ -5,7 +5,6 @@ require guest-image-minimal.bb
 
 IMAGE_INSTALL += " \
     weston \
-    weston-init \
-    weston-ini-conf-landscape \
+    weston-init-guest \
     cluster-refgui \
 "
