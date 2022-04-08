@@ -95,10 +95,10 @@ index 2bbdce8..0289594 100644
  	return ret;
  }
  
-@@ -1768,6 +1774,7 @@ int wet_main(int argc, char *argv[])
- 	wl_display_destroy_clients(display);
+@@ -1773,6 +1779,7 @@ error_compositor:
+ 	free(modules);
+ 	modules = NULL;
  
- error_compositor:
 +	release_drm_lease(ivi.drm_lease);
  	weston_compositor_tear_down(ivi.compositor);
  
