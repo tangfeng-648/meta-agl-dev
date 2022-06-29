@@ -10,7 +10,6 @@ PACKAGES = "\
 ALLOW_EMPTY:${PN} = "1"
 
 RDEPENDS:${PN} += " \
-    python3-pytest \
     agl-test-framework \
     agl-test-rpm \
     agl-test-glib2 \
