@@ -11,6 +11,4 @@ ALLOW_EMPTY:${PN} = "1"
 
 RDEPENDS:${PN} += " \
     agl-test-framework \
-    agl-test-rpm \
-    agl-test-glib2 \
 "
