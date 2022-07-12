@@ -7,7 +7,7 @@ SRC_URI = "git://gerrit.automotivelinux.org/gerrit/src/drm-lease-manager;protoco
            "
 
 PV = "0.1+git${SRCPV}"
-SRCREV = "53f4fe700dee88cc9840a91f2f297aacf05e08d4"
+SRCREV = "9a8ddd2e10eb7f54461d73c91028282106304f3c"
 
 S = "${WORKDIR}/git"
 
@@ -25,6 +25,9 @@ do_install:append() {
 
 SYSTEMD_SERVICE:${PN} = "drm-lease-manager.service"
 RDEPENDS:${PN} = "drm-lease-manager-init"
+
+PACKAGECONFIG ??= "${@bb.utils.filter('DISTRO_FEATURES', 'systemd', d)}"
+PACKAGECONFIG[systemd] = "-Denable-systemd=true,-Denable-systemd=false,systemd"
 
 EXTRA_OEMESON += "${@bb.utils.contains('PTEST_ENABLED', '1', '-Denable-tests=true', '', d)}"
 RDEPENDS:${PN}-ptest = "libcheck"
