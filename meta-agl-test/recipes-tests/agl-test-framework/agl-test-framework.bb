@@ -7,7 +7,7 @@ PN = 'agl-test-framework'
 PV = '1'
 
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/src/agl-test-framework;protocol=https;branch=master"
-SRCREV = "73a0548851b101d58478bfe7e60d9a74b334dcb9"
+SRCREV = "e35e4d16b0a231ed34a744bcb0a08c1278874df9"
 
 S = "${WORKDIR}/git"
 
@@ -24,6 +24,11 @@ do_install:append() {
     install -m 0644 ${WORKDIR}/git/plugins/* ${D}/usr/AGL/agl-test/plugins/
     install -d ${D}/usr/AGL/agl-test/template/
     install -m 0644 ${WORKDIR}/git/template/* ${D}/usr/AGL/agl-test/template/
+
+    install -d ${D}/usr/AGL/agl-test/tests/bzip2/
+    install -m 0644 ${WORKDIR}/git/tests/bzip2/* ${D}/usr/AGL/agl-test/tests/bzip2/
+    install -d ${D}/usr/AGL/agl-test/tests/expat/
+    install -m 0644 ${WORKDIR}/git/tests/expat/* ${D}/usr/AGL/agl-test/tests/expat/
     install -d ${D}/usr/AGL/agl-test/tests/glib2/
     install -m 0644 ${WORKDIR}/git/tests/glib2/* ${D}/usr/AGL/agl-test/tests/glib2/
 }
