@@ -25,6 +25,8 @@ do_install:append() {
     install -d ${D}/usr/AGL/agl-test/template/
     install -m 0644 ${WORKDIR}/git/template/* ${D}/usr/AGL/agl-test/template/
 
+    install -d ${D}/usr/AGL/agl-test/tests/aio-stress/
+    install -m 0644 ${WORKDIR}/git/tests/aio-stress/* ${D}/usr/AGL/agl-test/tests/aio-stress/
     install -d ${D}/usr/AGL/agl-test/tests/bzip2/
     install -m 0644 ${WORKDIR}/git/tests/bzip2/* ${D}/usr/AGL/agl-test/tests/bzip2/
     install -d ${D}/usr/AGL/agl-test/tests/expat/
