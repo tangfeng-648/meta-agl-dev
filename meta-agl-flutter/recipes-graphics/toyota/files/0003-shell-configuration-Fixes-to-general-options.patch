@@ -1,0 +1,52 @@
+From a3a1421c3986bbafd9f91997eec7f2606ef67fc3 Mon Sep 17 00:00:00 2001
+From: Marius Vlad <marius.vlad@collabora.com>
+Date: Mon, 25 Jul 2022 15:53:17 +0300
+Subject: [PATCH 3/3] shell/configuration: Fixes to general options
+
+This patch avoids an automatic overwrite of the debug_backend and
+disable_cursor entries. If enabled in the configuration file, the test
+will always return true, basically overwriting to false.
+
+Also, use the correct entry in the README file for debug_backend.
+
+Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
+---
+ README.md                            | 2 +-
+ shell/configuration/configuration.cc | 6 ++++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/README.md b/README.md
+index 7c162eb..d459f4c 100644
+--- a/README.md
++++ b/README.md
+@@ -175,7 +175,7 @@ Loads Single View
+ 
+ {
+    "disable_cursor":true,
+-   "backend_debug":true,
++   "debug_backend":true,
+    "accessibility_features":31,
+    "view":{
+       "bundle_path":"/home/joel/development/gallery/.homescreen/x86/release",
+diff --git a/shell/configuration/configuration.cc b/shell/configuration/configuration.cc
+index 616de48..773724c 100644
+--- a/shell/configuration/configuration.cc
++++ b/shell/configuration/configuration.cc
+@@ -152,10 +152,12 @@ void Configuration::getCliOverrides(Config& instance, Config& cli) {
+   if (!cli.cursor_theme.empty()) {
+     instance.cursor_theme = cli.cursor_theme;
+   }
+-  if (cli.disable_cursor != instance.disable_cursor) {
++  if (cli.disable_cursor == true &&
++      cli.disable_cursor != instance.disable_cursor) {
+     instance.disable_cursor = cli.disable_cursor;
+   }
+-  if (cli.debug_backend != instance.debug_backend) {
++  if (cli.debug_backend == true &&
++      cli.debug_backend != instance.debug_backend) {
+     instance.debug_backend = cli.debug_backend;
+   }
+   if (!cli.view.vm_args.empty()) {
+-- 
+2.35.3
+
