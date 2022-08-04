@@ -10,10 +10,8 @@ IMAGE_INSTALL:append = "\
     flutter-auto-runtimeprofile \
     \
     flutter-gallery-runtimeprofile \
+    flutter-gallery-runtimeprofile-init \
     flutter-test-texture-egl-runtimeprofile \
     flutter-test-secure-storage-runtimeprofile \
     flutter-test-localization-runtimeprofile \
-    \
-    flutter-app-igalia-homescreen-runtimeprofile \
-    flutter-app-pumped-fuel-ped-runtimeprofile	\
     "
