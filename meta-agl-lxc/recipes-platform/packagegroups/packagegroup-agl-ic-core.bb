@@ -13,4 +13,5 @@ PACKAGES = "\
 RDEPENDS:${PN} += "\
     libclusteripc \
     libclusterapi \
+    librefop \
 "
