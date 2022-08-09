@@ -5,5 +5,5 @@ AGL_META_VIRTUALIZATION = "${METADIR}/external/meta-virtualization"
 
 BBLAYERS =+ " \
   ${METADIR}/external/meta-qt5 \
-  ${METADIR}/meta-agl-devel/meta-agl-lxc \
+  ${METADIR}/meta-agl-devel/meta-agl-ic-container \
 "
