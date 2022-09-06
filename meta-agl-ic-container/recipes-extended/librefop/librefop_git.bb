@@ -6,11 +6,11 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=ae6497158920d9524cf208c09cc4c984"
 
 PV = "1.0.0+rev${SRCPV}"
 
-SRCREV = "2dd3bafb0c21d7f49fcc2945836924d9c052d268"
+SRCREV = "2ab22b2df67f915c74efab68cf9e6e2424805dd2"
 SRC_URI = " \
     git://git.automotivelinux.org/src/librefop;branch=master;protocol=https \
     "
 S = "${WORKDIR}/git"
 
-inherit autotools-brokensep pkgconfig
+inherit autotools pkgconfig
 
