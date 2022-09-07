@@ -10,10 +10,8 @@ IMAGE_INSTALL:append = "\
     flutter-auto-runtimedebug \
     \
     flutter-engine-runtimedebug-sdk-dev \
-    \
-    flutter-gallery-runtimedebug \
-    flutter-gallery-runtimedebug-init \
-    flutter-test-texture-egl-runtimedebug \
-    flutter-test-secure-storage-runtimedebug \
-    flutter-test-localization-runtimedebug \
+    "
+
+IMAGE_FEATURES:append = "\
+    ssh-server-openssh \
     "

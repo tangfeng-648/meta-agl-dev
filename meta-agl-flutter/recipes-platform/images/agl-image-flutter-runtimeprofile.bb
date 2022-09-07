@@ -9,9 +9,18 @@ IMAGE_INSTALL:append = "\
     \
     flutter-auto-runtimeprofile \
     \
+    flutter-engine-runtimeprofile-sdk-dev \
+    \
     flutter-gallery-runtimeprofile \
-    flutter-gallery-runtimeprofile-init \
+    flutter-test-animated-background-runtimeprofile \
     flutter-test-texture-egl-runtimeprofile \
     flutter-test-secure-storage-runtimeprofile \
     flutter-test-localization-runtimeprofile \
+    \
+    flutter-app-igalia-homescreen-runtimeprofile \
+    flutter-app-pumped-fuel-ped-runtimeprofile \
+    "
+
+IMAGE_FEATURES:append = "\
+    ssh-server-openssh \
     "

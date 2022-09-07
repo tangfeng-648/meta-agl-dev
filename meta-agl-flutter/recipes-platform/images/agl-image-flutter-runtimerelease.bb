@@ -9,9 +9,14 @@ IMAGE_INSTALL:append = "\
     \
     flutter-auto-runtimerelease \
     \
+    flutter-engine-runtimerelease-sdk-dev \
+    \
     flutter-gallery-runtimerelease \
-    flutter-gallery-runtimerelease-init \
+    flutter-test-animated-background-runtimerelease \
     flutter-test-texture-egl-runtimerelease \
     flutter-test-secure-storage-runtimerelease \
     flutter-test-localization-runtimerelease \
+    \
+    flutter-app-igalia-homescreen-runtimerelease \
+    flutter-app-pumped-fuel-ped-runtimerelease \
     "
