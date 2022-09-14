@@ -7,7 +7,7 @@ PN = 'agl-test-framework'
 PV = '1'
 
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/src/agl-test-framework;protocol=https;branch=master"
-SRCREV = "e35e4d16b0a231ed34a744bcb0a08c1278874df9"
+SRCREV = "50df2b6904dc448c2a8c5ed4f974c631fd97b070"
 
 S = "${WORKDIR}/git"
 
@@ -15,7 +15,7 @@ FILES:${PN} += " \
         /usr/AGL/agl-test/ \
 "
 
-do_install:append() {
+do_install() {
     install -d ${D}/usr/bin/
     install -m 0755 ${WORKDIR}/git/agl-test ${D}/usr/bin/
     install -d ${D}/usr/AGL/agl-test/plugins/
@@ -24,15 +24,6 @@ do_install:append() {
     install -m 0644 ${WORKDIR}/git/plugins/* ${D}/usr/AGL/agl-test/plugins/
     install -d ${D}/usr/AGL/agl-test/template/
     install -m 0644 ${WORKDIR}/git/template/* ${D}/usr/AGL/agl-test/template/
-
-    install -d ${D}/usr/AGL/agl-test/tests/aio-stress/
-    install -m 0644 ${WORKDIR}/git/tests/aio-stress/* ${D}/usr/AGL/agl-test/tests/aio-stress/
-    install -d ${D}/usr/AGL/agl-test/tests/bzip2/
-    install -m 0644 ${WORKDIR}/git/tests/bzip2/* ${D}/usr/AGL/agl-test/tests/bzip2/
-    install -d ${D}/usr/AGL/agl-test/tests/expat/
-    install -m 0644 ${WORKDIR}/git/tests/expat/* ${D}/usr/AGL/agl-test/tests/expat/
-    install -d ${D}/usr/AGL/agl-test/tests/glib2/
-    install -m 0644 ${WORKDIR}/git/tests/glib2/* ${D}/usr/AGL/agl-test/tests/glib2/
 }
 
 RDEPENDS:${PN} += " \
