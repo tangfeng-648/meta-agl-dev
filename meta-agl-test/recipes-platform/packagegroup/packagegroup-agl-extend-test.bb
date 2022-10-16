@@ -12,4 +12,6 @@ ALLOW_EMPTY:${PN} = "1"
 RDEPENDS:${PN} += " \
     agl-test-framework \
     aio-stress \
+    stress-ng \
+    ltp \
 "

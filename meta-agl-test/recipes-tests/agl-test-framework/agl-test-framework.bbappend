@@ -1,3 +1,13 @@
+#LTP
+do_install:append() {
+    install -d ${D}/usr/AGL/agl-test/tests/LTP/
+    install -m 0644 ${WORKDIR}/git/tests/LTP/*py ${D}/usr/AGL/agl-test/tests/LTP/
+
+    #math
+    install -d ${D}/usr/AGL/agl-test/tests/LTP/math/
+    install -m 0644 ${WORKDIR}/git/tests/LTP/math/* ${D}/usr/AGL/agl-test/tests/LTP/math/
+}
+
 #aio-stress
 do_install:append() {
     install -d ${D}/usr/AGL/agl-test/tests/aio-stress/
@@ -34,6 +44,12 @@ do_install:append() {
     install -m 0644 ${WORKDIR}/git/tests/expat/* ${D}/usr/AGL/agl-test/tests/expat/
 }
 
+#gdk-pixbuf
+do_install:append() {
+    install -d ${D}/usr/AGL/agl-test/tests/gdk-pixbuf/
+    install -m 0644 ${WORKDIR}/git/tests/gdk-pixbuf/* ${D}/usr/AGL/agl-test/tests/gdk-pixbuf/
+}
+
 #glib2
 do_install:append() {
     install -d ${D}/usr/AGL/agl-test/tests/glib2/
@@ -56,6 +72,18 @@ do_install:append() {
 do_install:append() {
     install -d ${D}/usr/AGL/agl-test/tests/openssl/
     install -m 0644 ${WORKDIR}/git/tests/openssl/* ${D}/usr/AGL/agl-test/tests/openssl/
+}
+
+#python3
+do_install:append() {
+    install -d ${D}/usr/AGL/agl-test/tests/python3/
+    install -m 0644 ${WORKDIR}/git/tests/python3/* ${D}/usr/AGL/agl-test/tests/python3/
+}
+
+#stress-ng
+do_install:append() {
+    install -d ${D}/usr/AGL/agl-test/tests/stress-ng/
+    install -m 0644 ${WORKDIR}/git/tests/stress-ng/* ${D}/usr/AGL/agl-test/tests/stress-ng/
 }
 
 #zlib
