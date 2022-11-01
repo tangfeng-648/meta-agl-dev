@@ -5,3 +5,7 @@ MACHINE_EXTRA_RDEPENDS:append = " \
     kernel-module-virtio-video \
     gstreamer1.0-plugins-bad \
 "
+
+MACHINE_EXTRA_RDEPENDS:append = " \
+    kernel-module-virtio-can \
+"
