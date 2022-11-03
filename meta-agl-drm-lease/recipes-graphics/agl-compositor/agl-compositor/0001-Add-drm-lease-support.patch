@@ -1,4 +1,4 @@
-From ed6cfbcf67221810f324a9889175c147728cf634 Mon Sep 17 00:00:00 2001
+From d70ec96c2703c421bff55f5d2dce8d8aa5f8819b Mon Sep 17 00:00:00 2001
 From: Damian Hobson-Garcia <dhobsong@igel.co.jp>
 Date: Tue, 12 Apr 2022 15:12:27 +0900
 Subject: [PATCH] Add drm-lease support
@@ -15,16 +15,16 @@ Signed-off-by: Damian Hobson-Garcia <dhobsong@igel.co.jp>
  src/compositor.c     |  7 ++++++
  src/drm-lease.c      | 52 ++++++++++++++++++++++++++++++++++++++++++++
  src/drm-lease.h      | 19 ++++++++++++++++
- src/ivi-compositor.h |  3 +++
- 6 files changed, 94 insertions(+)
+ src/ivi-compositor.h |  2 ++
+ 6 files changed, 93 insertions(+)
  create mode 100644 src/drm-lease.c
  create mode 100644 src/drm-lease.h
 
 diff --git a/meson.build b/meson.build
-index 0daf943..34c26f9 100644
+index 0958f06..cc5085f 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -193,6 +193,12 @@ elif policy_to_install == 'rba'
+@@ -194,6 +194,12 @@ elif policy_to_install == 'rba'
    message('Installing rba policy')
  endif
  
@@ -53,7 +53,7 @@ index dd1f3c0..89de273 100644
 +	description: 'Support for running weston with a leased DRM Master'
 +)
 diff --git a/src/compositor.c b/src/compositor.c
-index 7540fe3..771b7ce 100644
+index 634c468..f328a99 100644
 --- a/src/compositor.c
 +++ b/src/compositor.c
 @@ -64,6 +64,8 @@
@@ -65,7 +65,7 @@ index 7540fe3..771b7ce 100644
  static int cached_tm_mday = -1;
  static struct weston_log_scope *log_scope;
  
-@@ -877,11 +879,13 @@ load_drm_backend(struct ivi_compositor *ivi, int *argc, char *argv[])
+@@ -904,11 +906,13 @@ load_drm_backend(struct ivi_compositor *ivi, int *argc, char *argv[])
  	int use_pixman = 0;
  	bool use_shadow;
  	bool without_input = false;
@@ -79,7 +79,7 @@ index 7540fe3..771b7ce 100644
  		{ WESTON_OPTION_BOOLEAN, "current-mode", 0, &use_current_mode },
  		{ WESTON_OPTION_BOOLEAN, "use-pixman", 0, &use_pixman },
  		{ WESTON_OPTION_BOOLEAN, "continue-without-input", false, &without_input }
-@@ -889,6 +893,7 @@ load_drm_backend(struct ivi_compositor *ivi, int *argc, char *argv[])
+@@ -916,6 +920,7 @@ load_drm_backend(struct ivi_compositor *ivi, int *argc, char *argv[])
  
  	parse_options(options, ARRAY_LENGTH(options), argc, argv);
  	config.use_pixman = use_pixman;
@@ -87,7 +87,7 @@ index 7540fe3..771b7ce 100644
  	ivi->cmdline.use_current_mode = use_current_mode;
  
  	section = weston_config_get_section(ivi->config, "core", NULL, NULL);
-@@ -920,6 +925,7 @@ load_drm_backend(struct ivi_compositor *ivi, int *argc, char *argv[])
+@@ -947,6 +952,7 @@ load_drm_backend(struct ivi_compositor *ivi, int *argc, char *argv[])
  error:
  	free(config.gbm_format);
  	free(config.seat_id);
@@ -95,7 +95,7 @@ index 7540fe3..771b7ce 100644
  	return ret;
  }
  
-@@ -1789,6 +1795,7 @@ error_compositor:
+@@ -1833,6 +1839,7 @@ error_compositor:
  	free(modules);
  	modules = NULL;
  
@@ -187,7 +187,7 @@ index 0000000..9fdc428
 +#endif
 +#endif /* DRM_LEASE_H */
 diff --git a/src/ivi-compositor.h b/src/ivi-compositor.h
-index 78d1acd..8fe460b 100644
+index bf96fc7..fcf11bf 100644
 --- a/src/ivi-compositor.h
 +++ b/src/ivi-compositor.h
 @@ -35,6 +35,7 @@
@@ -198,15 +198,14 @@ index 78d1acd..8fe460b 100644
  
  #include "agl-shell-server-protocol.h"
  
-@@ -106,6 +107,8 @@ struct ivi_compositor {
- 	struct weston_layer panel;
- 	struct weston_layer popup;
+@@ -114,6 +115,7 @@ struct ivi_compositor {
  	struct weston_layer fullscreen;
-+
+ 
+ 	struct wl_list child_process_list;
 +	struct dlm_lease *drm_lease;
  };
  
  struct ivi_surface;
 -- 
-2.17.1
+2.35.1
 
