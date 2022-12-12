@@ -12,3 +12,8 @@ SRC_URI:append = " \
     file://virtio_bt.cfg \
     file://0002-Bluetooth-virtio_bt-fix-device-removal.patch \
 "
+
+# virtio loopback
+SRC_URI += " \
+    file://virtio_loopback.cfg \
+"
