@@ -1,0 +1,34 @@
+From f7ca4f954b8c69ca23d089cb5fdbe8970816b2c6 Mon Sep 17 00:00:00 2001
+From: Naoto Yamaguchi <naoto.yamaguchi@aisin.co.jp>
+Date: Sun, 4 Dec 2022 23:34:03 +0900
+Subject: [PATCH] Remove container automatic rebooting
+
+When guest container use reboot command, lxc-monitor will reboot guest automatically.
+In this case, container management daemon catch exit from guest init, but it cant
+reboot guest.  This mean container manager can't re-assign dynamic devices.
+This patch disable automatic reboot.
+
+Signed-off-by: Naoto Yamaguchi <naoto.yamaguchi@aisin.co.jp>
+---
+ src/lxc/lxccontainer.c | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/src/lxc/lxccontainer.c b/src/lxc/lxccontainer.c
+index 4363340b3..6649f12f6 100644
+--- a/src/lxc/lxccontainer.c
++++ b/src/lxc/lxccontainer.c
+@@ -1124,11 +1124,6 @@ reboot:
+ 		ret = lxc_start(argv, handler, c->config_path, c->daemonize,
+ 				&c->error_num);
+ 
+-	if (conf->reboot == REBOOT_REQ) {
+-		INFO("Container requested reboot");
+-		conf->reboot = REBOOT_INIT;
+-		goto reboot;
+-	}
+ 
+ on_error:
+ 	if (c->pidfile) {
+-- 
+2.25.1
+

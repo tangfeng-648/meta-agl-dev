@@ -1,6 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI += " \
+    file://0001-Remove-container-automatic-rebooting.patch \
     file://lxc.service \
     file://lxc-net.service \
     "
@@ -37,6 +38,3 @@ FILES:${PN}-networking += " \
 # This needs to be replaced with a rework of the upstream packaging
 # to do a proper split of core from the template support.
 RDEPENDS:${PN} = ""
-
-
-
