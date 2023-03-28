@@ -9,11 +9,13 @@ SRC_URI = "git://github.com/alphacep/kaldi.git;protocol=https;branch=vosk \
            "
 
 PV = "1.0+git${SRCPV}"
-SRCREV = "76cd51d44c0a61e3905c35cadb2ec5f54f3e42d1"
+#SRCREV = "76cd51d44c0a61e3905c35cadb2ec5f54f3e42d1"
+SRCREV = "${AUTOREV}"
 
 S = "${WORKDIR}/git/src"
 
 DEPENDS += "openblas vosk-openfst"
+
 inherit python3native
 
 ALLOW_EMPTY_${PN} = "1"
@@ -22,32 +24,23 @@ MYCONF = "--mathlib=OPENBLAS --static --shared --use-cuda=no --fst-root=${STAGIN
 
 # remove x86-specific optimizations
 do_configure:prepend:aarch64(){
-
 sed -i -e "s#-msse -msse2##g" ${S}/makefiles/linux_openblas.mk
-
 }
 
 do_configure:prepend:arm(){
-
 sed -i -e "s#-msse -msse2##g" ${S}/makefiles/linux_openblas.mk
-
 }
 
 
 do_configure() {
-
   ./configure ${MYCONF}
-
 }
 
 do_compile() {
-
   make ${PARALLEL_MAKE}
-
 }
 
 do_install() {
-
   install -d ${D}${libdir}
 
   for i in lib/*.so ; do

@@ -11,23 +11,18 @@ SRCREV = "70f3d5321a40f2f5dffe9c833bc1fac4b3b451e7"
 
 S = "${WORKDIR}/git"
 
+do_configure[noexec] = "1"
+do_compile[noexec] = "1"
+
+do_install () {
+    install -d ${D}${bindir}
+    cp ${S}/websocket/asr_server.py ${D}${bindir}/vosk-websocket-python.py
+    chmod a+x ${D}${bindir}/vosk-websocket-python.py
+}
+
 RDEPENDS:${PN} += " \
     vosk \
     python3-vosk-api \
     python3-websockets \
     virtual/vosk-model \
 "
-
-do_configure () {
-	:
-}
-
-do_compile () {
-	:
-}
-
-do_install () {
-	install -d ${D}${bindir}
-	cp ${S}/websocket/asr_server.py ${D}${bindir}/vosk-websocket-python.py
-    chmod a+x ${D}${bindir}/vosk-websocket-python.py
-}

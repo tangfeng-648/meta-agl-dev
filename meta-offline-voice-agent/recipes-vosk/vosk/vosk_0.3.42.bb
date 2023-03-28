@@ -14,24 +14,18 @@ S = "${WORKDIR}/git/src"
 
 DEPENDS += " vosk-kaldi vosk-openfst openblas"
 
-RDEPENDS:${PN} += " \
-"
+#RDEPENDS:${PN} += ""
 
 CFLAGS:append = " -I${STAGING_INCDIR}/kaldi -g "
 LDFLAGS:remove = "-Wl,--as-needed"
 
-do_configure(){
-    :
-}
+do_configure[noexec] = "1"
 
 do_compile(){
-
     make KALDI_ROOT=${STAGING_INCDIR}/kaldi/ OPENFST_ROOT=${STAGING_INCDIR} OPENBLAS_ROOT=${STAGING_INCDIR} USE_SHARED=1 EXTRA_CFLAGS="${CFLAGS}" EXTRA_LDFLAGS="${LDFLAGS}" ${PARALLEL_MAKE}
-
 }
 
 do_install(){
-
     install -d ${D}${libdir}
     install -m 0644 libvosk.so.0.3.42 ${D}${libdir}
     cd ${D}${libdir}
@@ -41,9 +35,8 @@ do_install(){
 
     install -d ${D}${includedir}/vosk
     for i in *.h ; do
-	install -m 0644 $i ${D}${includedir}/vosk/
+        install -m 0644 $i ${D}${includedir}/vosk/
     done
-
 }
 
 ERROR_QA:remove = "dev-deps"
