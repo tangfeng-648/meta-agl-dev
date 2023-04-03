@@ -10,17 +10,24 @@ PV = "0.1.0+rev${SRCPV}"
 SRCREV = "e3a33d47195e4656f7117753d27a0f2d6b21aab9"
 SRC_URI = " \
     git://github.com/AGLExport/ilm-manager.git;branch=master;protocol=https \
-    file://agl.json \
+    file://agl.json.in \
     file://ilm-manager.service \
     "
 S = "${WORKDIR}/git"
 
 inherit autotools pkgconfig systemd
 
+DRM_IVI_DEVICE = "HDMI-A-1"
+DRM_IVI_DEVICE:qemuall = "Virtual-1"
+
 do_install:append() {
     #install scripts
+
+    sed 's|@DRM_IVI_DEVICE@|${DRM_IVI_DEVICE}|g' \
+         ${WORKDIR}/agl.json.in > ${B}/agl.json
+
     install -d ${D}${sysconfdir}
-    install -m 0644 ${WORKDIR}/agl.json ${D}${sysconfdir}
+    install -m 0644 ${B}/agl.json ${D}${sysconfdir}
 
     install -d ${D}/${systemd_system_unitdir}
     install -m 0644 ${WORKDIR}/ilm-manager.service ${D}${systemd_system_unitdir}

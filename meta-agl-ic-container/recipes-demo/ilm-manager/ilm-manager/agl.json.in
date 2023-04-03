@@ -2,7 +2,7 @@
 	"screen": [
 		{
 			"name": "ivi-screen",
-			"dispname": "HDMI-A-1"
+			"dispname": "@DRM_IVI_DEVICE@"
 		}
 	],
 	"layer": [
