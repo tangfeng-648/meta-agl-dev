@@ -7,7 +7,7 @@ PN = 'agl-test-framework'
 PV = '1'
 
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/src/agl-test-framework;protocol=https;branch=master"
-SRCREV = "fb969436af3ebbdc81c15b23ad8b1ef37a8c2694"
+SRCREV = "fbae7ac31fd2a895f74c4c57508662eec15f40c1"
 
 S = "${WORKDIR}/git"
 
@@ -20,7 +20,6 @@ do_install() {
     install -m 0755 ${WORKDIR}/git/agl-test ${D}/usr/bin/
     install -d ${D}/usr/AGL/agl-test/plugins/
     install -m 0644 ${WORKDIR}/git/pytest.ini ${D}/usr/AGL/agl-test/
-    install -m 0644 ${WORKDIR}/git/conftest.py ${D}/usr/AGL/agl-test/
     install -m 0644 ${WORKDIR}/git/plugins/* ${D}/usr/AGL/agl-test/plugins/
     install -d ${D}/usr/AGL/agl-test/template/
     install -m 0644 ${WORKDIR}/git/template/* ${D}/usr/AGL/agl-test/template/

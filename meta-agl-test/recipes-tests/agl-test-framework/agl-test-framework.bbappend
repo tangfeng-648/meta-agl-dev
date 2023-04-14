@@ -76,6 +76,12 @@ do_install:append() {
     install -m 0644 ${WORKDIR}/git/tests/glib2/* ${D}/usr/AGL/agl-test/tests/glib2/
 }
 
+#json_glib
+do_install:append() {
+    install -d ${D}/usr/AGL/agl-test/tests/json_glib/
+    install -m 0644 ${WORKDIR}/git/tests/json_glib/* ${D}/usr/AGL/agl-test/tests/json_glib/
+}
+
 #libpam
 do_install:append() {
     install -d ${D}/usr/AGL/agl-test/tests/libpam/
@@ -86,6 +92,12 @@ do_install:append() {
 do_install:append() {
     install -d ${D}/usr/AGL/agl-test/tests/libxml2/
     install -m 0644 ${WORKDIR}/git/tests/libxml2/* ${D}/usr/AGL/agl-test/tests/libxml2/
+}
+
+#linus_stress
+do_install:append() {
+    install -d ${D}/usr/AGL/agl-test/tests/linus_stress/
+    install -m 0644 ${WORKDIR}/git/tests/linus_stress/* ${D}/usr/AGL/agl-test/tests/linus_stress/
 }
 
 #openssl
