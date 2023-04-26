@@ -16,7 +16,7 @@ SRC_URI = "https://oss.oracle.com/~mason/aio-stress/aio-stress.c \
 S = "${WORKDIR}"
 
 FILES:${PN} += " \
-    /usr/AGL/agl-test/tests/aio-stress/resource \
+    /usr/AGL/agl-test/tests/aio_stress/resource \
 "
 
 do_compile() {
@@ -24,8 +24,8 @@ do_compile() {
 }
 
 do_install:append() {
-    install -d ${D}/usr/AGL/agl-test/tests/aio-stress/resource/
-    install -m 0755 ${WORKDIR}/aio-stress ${D}/usr/AGL/agl-test/tests/aio-stress/resource/
+    install -d ${D}/usr/AGL/agl-test/tests/aio_stress/resource/
+    install -m 0755 ${WORKDIR}/aio-stress ${D}/usr/AGL/agl-test/tests/aio_stress/resource/
 }
 
 RDEPENDS:${PN} += " \
