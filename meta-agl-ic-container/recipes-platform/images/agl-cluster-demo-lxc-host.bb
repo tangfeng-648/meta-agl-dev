@@ -2,6 +2,8 @@ SUMMARY = "LXC host demo image"
 LICENSE = "MIT"
 
 require lxc-host-image-minimal.bb
+require recipes-platform/images/agl-lxc-install-single-image.inc
+require recipes-platform/images/agl-lxc-autostart.inc
 
 CONTAINER_IMAGES ?= "agl-container-cluster:guest-image-cluster-demo \
                      agl-container-ivi:guest-image-ivi-demo \
@@ -17,7 +19,6 @@ IMAGE_INSTALL += " \
 
 # packages required for network bridge settings via lxc-net
 IMAGE_INSTALL += " \
-    lxc-autostart \
     lxc-networking \
     iptables-modules \
     dnsmasq \
