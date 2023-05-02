@@ -17,6 +17,7 @@ IMAGE_INSTALL += " \
 
 # packages required for network bridge settings via lxc-net
 IMAGE_INSTALL += " \
+    lxc-autostart \
     lxc-networking \
     iptables-modules \
     dnsmasq \
