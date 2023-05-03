@@ -29,5 +29,3 @@ IMAGE_INSTALL += " \
 
 # network manager to use
 VIRTUAL-RUNTIME_net_manager = "systemd"
-
-IMAGE_INSTALL:append:rcar-gen3 = " kernel-module-gles "
