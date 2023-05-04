@@ -28,3 +28,8 @@ IMAGE_INSTALL += " \
     packagegroup-pipewire-base \
     wireplumber-policy-config-agl \
 "
+
+IMAGE_OVERHEAD_FACTOR = "0"
+EXTRA_IMAGECMD:append = " -L agl-momi-ivi"
+IMAGE_ROOTFS_EXTRA_SPACE = "0"
+IMAGE_ROOTFS_SIZE = "1048576"

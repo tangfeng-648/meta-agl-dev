@@ -1,0 +1,32 @@
+SUMMARY = "AGL Instrument Cluster Cotainer Integration demo image"
+LICENSE = "MIT"
+
+require lxc-host-image-minimal.bb
+require recipes-platform/images/agl-lxc-multi-partition-image.inc
+
+CONTAINER_IMAGES ?= "agl-container-cluster:guest-image-cluster-demo \
+                     agl-container-ivi:guest-image-ivi-demo \
+                    "
+
+IMAGE_INSTALL += " \
+    kernel-modules \
+    alsa-utils \
+    packagegroup-pipewire \
+    pipewire-ic-ipc \
+    wireplumber-config-agl \
+"
+
+# packages required for network bridge settings via lxc-net
+IMAGE_INSTALL += " \
+    lxc-networking \
+    iptables-modules \
+    dnsmasq \
+    systemd-netif-config \
+    kernel-module-xt-addrtype \
+    kernel-module-xt-multiport \
+"
+
+# network manager to use
+VIRTUAL-RUNTIME_net_manager = "systemd"
+
+WKS_FILES:prepend = "agl-ic-container-noloader.wks "

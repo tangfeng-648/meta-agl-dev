@@ -1,4 +1,4 @@
-# Integration type support for install guest root filesystem into host image.
+# Integration type support for multi partition with host and guest image.
 
 require recipes-platform/images/agl-lxc-multiconfig-build.inc
 
@@ -10,11 +10,10 @@ install_container_images() {
         config=${c%:*}
         image=${c#*:}
         name=${image#guest-image-}
-        rm -rf  ${IMAGE_ROOTFS}/var/lib/machines/${name}
-        install -m 0755 -d ${IMAGE_ROOTFS}/var/lib/machines/${name}
-        src="${TOPDIR}/tmp-${config}/deploy/images/${MACHINE}/${image}-${MACHINE}${MACHINE_SUFFIX}.tar.bz2"
+        rm -f "${DEPLOY_DIR_IMAGE}/${image}.ext4"
+        src="${TOPDIR}/tmp-${config}/deploy/images/${MACHINE}/${image}-${MACHINE}${MACHINE_SUFFIX}.ext4"
         bbnote "Installing ${src}"
-        tar -C ${IMAGE_ROOTFS}/var/lib/machines/${name} -xf ${src}
+        ln -s ${src} "${DEPLOY_DIR_IMAGE}/${image}.ext4"
     done
 }
 
