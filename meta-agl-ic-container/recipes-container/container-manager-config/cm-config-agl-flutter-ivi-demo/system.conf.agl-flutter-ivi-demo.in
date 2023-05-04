@@ -1,4 +1,4 @@
 [Manager]
 DefaultEnvironment = DLM_RUNTIME_PATH=/var/display/drm-lease-manager
-DefaultEnvironment = DRM_LEASE_DEVICE=card0-HDMI-A-1
+DefaultEnvironment = DRM_LEASE_DEVICE=@DRM_LEASE_DEVICE@
 DefaultEnvironment = PIPEWIRE_RUNTIME_DIR=/var

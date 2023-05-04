@@ -6,13 +6,12 @@ SRC_URI = "file://agl-html5-ivi-demo.json \
            file://system.conf.agl-html5-ivi-demo.in \
           "
 
-inherit allarch
+inherit cm-config
 
 do_install:append() {
     install -Dm644 ${WORKDIR}/agl-html5-ivi-demo.json ${D}/opt/container/conf/agl-html5-ivi-demo.json
     install -d ${D}/opt/container/guests/agl-html5-ivi-demo/rootfs
     install -d ${D}/opt/container/guests/agl-html5-ivi-demo/nv
-    install -Dm644 ${WORKDIR}/system.conf.agl-html5-ivi-demo.in ${D}/opt/container/guests/agl-html5-ivi-demo/system.conf
 }
 
 FILES:${PN} += " \

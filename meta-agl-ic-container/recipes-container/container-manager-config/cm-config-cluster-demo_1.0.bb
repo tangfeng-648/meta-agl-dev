@@ -7,13 +7,12 @@ SRC_URI = "file://cluster-demo.json \
            file://system.conf.cluster-demo.in \
           "
 
-inherit allarch
+inherit cm-config
 
 do_install:append() {
     install -Dm644 ${WORKDIR}/cluster-demo.json ${D}/opt/container/conf/cluster-demo.json
     install -d ${D}/opt/container/guests/cluster-demo/rootfs
     install -d ${D}/opt/container/guests/cluster-demo/nv
-    install -Dm644 ${WORKDIR}/system.conf.cluster-demo.in  ${D}/opt/container/guests/cluster-demo/system.conf
 }
 
 FILES:${PN} += " \
