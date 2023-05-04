@@ -18,6 +18,9 @@ IMAGE_INSTALL += " \
 
 # packages required for network bridge settings via lxc-net
 IMAGE_INSTALL += " \
+    container-manager \
+    cm-config-cluster-demo \
+    cm-config-agl-momi-ivi-demo \
     lxc-networking \
     iptables-modules \
     dnsmasq \
