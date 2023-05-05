@@ -1,0 +1,11 @@
+# short-description: Create SD card image with a boot partition
+# long-description: Creates a partitioned SD card image. Boot files
+# are located in the first vfat partition.
+
+part /boot --source bootimg-partition --fstype=vfat --label boot --use-uuid --active --align 4 --size 16
+part / --source rootfs --fstype=ext4 --label host --align 4096 --size 1024
+part --source rawcopy --sourceparams="file=guest-image-cluster-demo.ext4"
+part --source rawcopy --sourceparams="file=guest-image-ivi-demo.ext4"
+part --fstype=ext4 --label agl-qt-ivi --align 4096  --size 3072
+part --fstype=ext4 --label agl-flutter-ivi --align 4096  --size 3072
+part --fstype=ext4 --label agl-html5-ivi --align 4096  --size 3072

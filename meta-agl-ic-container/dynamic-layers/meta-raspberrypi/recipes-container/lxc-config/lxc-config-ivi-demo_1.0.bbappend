@@ -1,4 +1,4 @@
-require multi-display.inc
+require conf/include/drm-lease-multi-display.inc
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/${BPN}:"
 
