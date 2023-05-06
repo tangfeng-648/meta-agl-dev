@@ -1,5 +1,9 @@
 RDEPENDS:${PN}:remove:aglcontainerguest = "kernel-module-gles"
 
+do_install:append(){
+    sed -i 's/GROUP="display"/GROUP="video"/g' ${D}${sysconfdir}/udev/rules.d/72-pvr-seat.rules
+}
+
 PACKAGES:prepend = "\
     ${PN}-firmware \
 "
