@@ -17,6 +17,13 @@ OUT_OF_TREE_CONTAINER_CONFIGS ??= " \
     cm-config-agl-html5-ivi-demo \
 "
 
+CONTAINER_EXCHANGE_DEMO_UI ??= "momiweb momikey"
+
+CONTAINER_MULTI_DEMO ??= " \
+    ${OUT_OF_TREE_CONTAINER_CONFIGS} \
+    ${CONTAINER_EXCHANGE_DEMO_UI} \
+"
+
 # Handle modification of IMAGE_LINK_NAME done by ULCB builds with Kingfisher support
 MACHINE_SUFFIX = "${@bb.utils.contains('AGL_FEATURES', 'kingfisher', '-kf', '', d)}"
 
@@ -44,7 +51,7 @@ install_container_images() {
 ROOTFS_POSTPROCESS_COMMAND += "install_container_images; "
 
 IMAGE_INSTALL:append = " \
-    ${@bb.utils.contains('OUT_OF_TREE_CONTAINER_IMAGE_DEPLOY_DIR', 'non', '', '${OUT_OF_TREE_CONTAINER_CONFIGS} momiweb', d)} \
+    ${@bb.utils.contains('OUT_OF_TREE_CONTAINER_IMAGE_DEPLOY_DIR', 'non', '', '${CONTAINER_MULTI_DEMO}', d)} \
 "
 
 WKS_FILES:prepend = " \

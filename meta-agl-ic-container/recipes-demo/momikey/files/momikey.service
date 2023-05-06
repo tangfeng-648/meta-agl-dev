@@ -1,0 +1,10 @@
+[Unit]
+Description=CH57x keyboard based UI for container demo
+After=container-manager.service multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/momikey.sh
+
+[Install]
+WantedBy=multi-user.target
