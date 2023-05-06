@@ -26,13 +26,6 @@
 			"HOME=/home/root"
 		]
 	},
-	"resource": [
-		{
-			"type":		"cgroup",
-			"object":	"cpuset.cpus",
-			"value":	"1"
-		}
-	],
 	"fs": {
 		"mount": [
 			{
