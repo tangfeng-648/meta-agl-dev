@@ -44,7 +44,7 @@ install_container_images() {
 ROOTFS_POSTPROCESS_COMMAND += "install_container_images; "
 
 IMAGE_INSTALL:append = " \
-    ${@bb.utils.contains('OUT_OF_TREE_CONTAINER_IMAGE_DEPLOY_DIR', 'non', '', '${OUT_OF_TREE_CONTAINER_CONFIGS}', d)} \
+    ${@bb.utils.contains('OUT_OF_TREE_CONTAINER_IMAGE_DEPLOY_DIR', 'non', '', '${OUT_OF_TREE_CONTAINER_CONFIGS} momiweb', d)} \
 "
 
 WKS_FILES:prepend = " \
