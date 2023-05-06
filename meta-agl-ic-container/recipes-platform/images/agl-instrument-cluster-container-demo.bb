@@ -31,5 +31,3 @@ IMAGE_INSTALL += " \
 
 # network manager to use
 VIRTUAL-RUNTIME_net_manager = "systemd"
-
-WKS_FILES:prepend = "agl-ic-container-noloader.wks "
