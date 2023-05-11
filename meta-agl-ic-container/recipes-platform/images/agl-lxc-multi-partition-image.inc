@@ -3,7 +3,7 @@
 require recipes-platform/images/agl-lxc-multiconfig-build.inc
 
 # Install out of tree build image support
-OUT_OF_TREE_CONTAINER_IMAGE_DEPLOY_DIR ??= "non"
+OUT_OF_TREE_CONTAINER_IMAGE_DEPLOY_DIR ??= ""
 
 OUT_OF_TREE_CONTAINER_IMAGES ??= " \
     agl-ivi-demo-platform \
@@ -38,7 +38,7 @@ install_container_images() {
         ln -s ${src} "${DEPLOY_DIR_IMAGE}/${image}.ext4"
     done
 
-    if ${@bb.utils.contains('OUT_OF_TREE_CONTAINER_IMAGE_DEPLOY_DIR', 'non', 'false', 'true', d)}; then
+    if ${@oe.utils.conditional('OUT_OF_TREE_CONTAINER_IMAGE_DEPLOY_DIR', '', 'false', 'true', d)}; then
         er=0
         for image in ${OUT_OF_TREE_CONTAINER_IMAGES}; do
             rm -f "${DEPLOY_DIR_IMAGE}/${image}.ext4"
@@ -61,9 +61,9 @@ install_container_images() {
 ROOTFS_POSTPROCESS_COMMAND += "install_container_images; "
 
 IMAGE_INSTALL:append = " \
-    ${@bb.utils.contains('OUT_OF_TREE_CONTAINER_IMAGE_DEPLOY_DIR', 'non', '', '${CONTAINER_MULTI_DEMO}', d)} \
+    ${@oe.utils.conditional('OUT_OF_TREE_CONTAINER_IMAGE_DEPLOY_DIR', '', '', '${CONTAINER_MULTI_DEMO}', d)} \
 "
 
 WKS_FILES:prepend = " \
-    ${@bb.utils.contains('OUT_OF_TREE_CONTAINER_IMAGE_DEPLOY_DIR', 'non', 'agl-ic-container-noloader.wks ', 'agl-ic-container-noloader-demo.wks ', d)} \
+    ${@oe.utils.conditional('OUT_OF_TREE_CONTAINER_IMAGE_DEPLOY_DIR', '', 'agl-ic-container-noloader.wks ', 'agl-ic-container-noloader-demo.wks ', d)} \
 "
