@@ -16,8 +16,6 @@ python __anonymous() {
 
 S = "${WORKDIR}"
 
-inherit allarch
-
 DRM_LEASE_DEVICE ??= "card0-HDMI-A-1"
 
 do_configure[noexec] = "1"

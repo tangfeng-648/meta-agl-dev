@@ -15,6 +15,8 @@ do_install:append() {
     install -d ${D}/opt/container/guests/cluster-demo/nv
 }
 
+PACKAGE_ARCH = "${MACHINE_ARCH}"
+
 FILES:${PN} += " \
     /opt/container/conf/* \
     /opt/container/guests/cluster-demo/* \
