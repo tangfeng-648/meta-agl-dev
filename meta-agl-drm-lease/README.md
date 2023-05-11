@@ -61,3 +61,6 @@ Multiple kmscube instances (one per DRM lease) can be started at the same time.
 
 This layer has been tested on the Renesas R-Car Gen3 platform.  Other platforms
 supporting the Linux DRM API may work as well.
+
+maintainer: agl-dev-community@lists.automotivelinux.org
+patch: agl-dev-community@lists.automotivelinux.org
