@@ -6,6 +6,7 @@ IMAGE_INSTALL += " \
     kernel-image \
     lxc \
     drm-lease-manager \
+    packagegroup-agl-container-feature-logging-host \
 "
 
 CONTAINER_IMAGES ??= ""

@@ -1,6 +1,6 @@
 [Unit]
 Description=AGL Container Manager
-After=drm-lease-manager.service lxc-net.service multi-user.target
+After=drm-lease-manager.service lxc-net.service dlt.service multi-user.target
 Wants=drm-lease-manager.service lxc-net.service multi-user.target
 
 [Service]

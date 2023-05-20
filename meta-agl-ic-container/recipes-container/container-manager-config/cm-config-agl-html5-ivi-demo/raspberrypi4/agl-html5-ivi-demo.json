@@ -66,6 +66,13 @@
 			},
 			{
 				"type": 	"directory",
+				"from": 	"/run/dlt",
+				"to":		"run/dlt",
+				"fstype":	"none",
+				"option": 	"bind,optional,create=dir"
+			},
+			{
+				"type": 	"directory",
 				"from": 	"/opt/container/guests/agl-html5-ivi-demo/system.conf",
 				"to":		"etc/systemd/system.conf.d/10-environment.conf",
 				"fstype":	"none",

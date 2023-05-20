@@ -8,4 +8,5 @@ IMAGE_ROOTFS_EXTRA_SPACE:append = "${@bb.utils.contains("DISTRO_FEATURES", "syst
 
 IMAGE_INSTALL:append = " \
     packagegroup-agl-ic-core \
+    packagegroup-agl-container-feature-logging-guest \
 "
