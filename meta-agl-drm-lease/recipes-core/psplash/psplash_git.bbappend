@@ -25,19 +25,19 @@ SRC_URI += " \
 SRC_URI += " \
 	file://0016-Imprement-drm-lease-support.patch \
 	file://0017-drm-lease-Fix-incorrect-drawing-with-portrait-orient.patch \
+	file://psplash-drmlease.conf \
 	"
 
 # Licesnse checksum was changed by above patches
 LIC_FILES_CHKSUM = "file://psplash.h;beginline=1;endline=8;md5=db1ed16abf4be6de3d79201093ac4f07"
 
-PACKAGECONFIG[drm] = "--enable-drm,,libdrm"
-PSPLASH_ARGS += "${@bb.utils.contains('PACKAGECONFIG', 'drm', '--drm', '', d)}"
+PACKAGECONFIG:append = " drm drm-lease"
 
+PACKAGECONFIG[drm] = "--enable-drm,,libdrm"
 PACKAGECONFIG[drm-lease] = "--enable-drm-lease,,drm-lease-manager"
-PSPLASH_DRM_LEASE_ARGS ??= "--drm-lease lease0"
-PSPLASH_ARGS += "${@bb.utils.contains('PACKAGECONFIG', 'drm-lease', '${PSPLASH_DRM_LEASE_ARGS}', '', d)}"
-RDEPENDS:${PN} += "${@bb.utils.contains('PACKAGECONFIG', 'drm-lease', 'drm-lease-manager', '', d)}"
 
 do_install:append () {
-	sed -i -e "s!^\(ExecStart=/usr/bin/psplash.*\)!\1 ${PSPLASH_ARGS}!" ${D}${systemd_system_unitdir}/psplash-start.service
+    # Install override
+    install -d ${D}${systemd_system_unitdir}/psplash-start.service.d
+    install -m 0644 ${WORKDIR}/psplash-drmlease.conf ${D}${systemd_system_unitdir}/psplash-start.service.d/
 }
