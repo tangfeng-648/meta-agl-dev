@@ -1,19 +1,17 @@
 # meta-agl-flutter
 
-_This documentation is expecting user to be running Ubuntu 20.04_
-
-## Steps to build `agl-ivi-demo-platform-flutter` image
+## Steps to build `agl-demo-platform` image
 
 ```
     export AGL_TOP=$HOME/workspace_agl
     mkdir -p $AGL_TOP && cd $AGL_TOP
     repo init -u https://gerrit.automotivelinux.org/gerrit/AGL/AGL-repo -b master
     repo sync -j $(nproc)
-    source meta-agl/scripts/aglsetup.sh -m qemux86-64 agl-demo
-    bitbake agl-ivi-demo-platform-flutter
+    source meta-agl/scripts/aglsetup.sh -m qemux86-64 agl-demo agl-flutter
+    bitbake agl-demo-platform
 ```
 
-This builds AGL demo image that includes Flutter runtime=release.
+This builds AGL demo image that includes Flutter runtime={debug,profile,release}.
 
 
 ## Steps to build a minimal flutter image
@@ -24,30 +22,17 @@ This builds AGL demo image that includes Flutter runtime=release.
     repo init -u https://gerrit.automotivelinux.org/gerrit/AGL/AGL-repo -b master
     repo sync -j `grep -c ^processor /proc/cpuinfo`
     source meta-agl/scripts/aglsetup.sh -m qemux86-64 agl-devel agl-flutter
+    bitbake agl-image-flutter
 ```
-
-Build one of the minimal Flutter images below using `bitbake`
-
-1. `agl-image-flutter-runtimedebug`
+  * include Flutter engine runtime={debug,release,profile}
   * includes Flutter Engine SDK
   * includes SSH server
-  * live debugging with target via host
-
-2. `agl-image-flutter-runtimeprofile`
-  * includes Flutter Engine SDK
-  * includes SSH server
-  * runs only Flutter Applications built as AOT profile images
-  * live profiling with target via host
-
-3. `agl-image-flutter-runtimerelease`
-  * includes Flutter Engine SDK
-  * runs only Flutter Applications built as AOT release images
-  * Does not include SSH server
+  * live debugging/profiling with target via host
 
 
 ## Flutter Engine SDK
 
-If recipe `flutter-engine-runtime<variant>-sdk-dev` is included in your AGL image, `engine_sdk.zip` will be present in `/usr/share/flutter/`.
+If recipe `flutter-engine-sdk-dev` is included in your AGL image, `engine_sdk.zip` will be present in `/usr/share/flutter/`.
 
 engine_sdk.zip contains
 * sdk/flutter_sdk.version - The Flutter SDK version
@@ -59,18 +44,20 @@ This recipe should be excluded from image in a production release.
 
 ## Flutter Workspace Automation
 
-```
-    mkdir -p <path to my workspace> && cd <path to my workspace>
-    curl --proto '=https' --tlsv1.2 -sSf https://gerrit.automotivelinux.org/gerrit/gitweb?p=AGL/meta-agl-devel.git;a=blob_plain;f=meta-agl-flutter/tools/flutter_workspace_config.json;hb=HEAD -o flutter_workspace_config.json
-    curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/meta-flutter/meta-flutter/kirkstone/tools/setup_flutter_workspace.py | python3
-```
+    cd $AGL
+    cd $AGL_TOP
+    ln -sf external/workspace-automation/flutter_workspace.py meta-agl-devel/meta-agl-flutter/tools/flutter_workspace.py
+    cd meta-agl-devel/meta-agl-flutter/tools
+    export FLUTTER_WORKSPACE=`pwd`
+    flutter_workspace.py
+    source setup_env.sh
 
 Additional documentation available [here](https://github.com/meta-flutter/meta-flutter/tree/kirkstone/tools#flutter-workspace-automation)
 
 
 ## Startup Service
 
-If you include `flutter-gallery-runtime<variant>-init` it will install a systemd user service, which starts the Flutter Gallery on boot.  This is not included in the minimal images.
+If you include `flutter-gallery-init` it will install a systemd user service, which starts the Flutter Gallery on boot.  This is not included in the minimal images.
 
 At runtime you can edit `/usr/share/flutter/default.json` to point to any Flutter bundle.
 
@@ -133,63 +120,56 @@ _Answering with `y` appends QEMU connection to `~/.ssh/known_hosts`_
 ```
 
 
-### Release
+### Working with QEMU images
 
-1.  Change AGL-qemu flutter_runtime value in $AGL_TOP/sources/meta-agl-devel/meta-agl-flutter/tools/flutter_workspace_config.json to `release`.
+1.  Setup the flutter workspace.
 
-```
-    {
-        "id": "AGL-qemu",
-        "type": "qemu",
-        "arch": "x86_64",
-        "flutter_runtime": "release",
-        "runtime": {
-```
+    source ${FLUTTER_WORKSPACE}/setup_env.sh
 
-This enables download of QEMU `release` variant.
+The stdout tail should look similar to:
 
-2. Run the flutter workspace script
+    ********************************************
+    * Type 'run-agl-qemu-master' to start
+    ********************************************
+    ********************************************
+    * Type 'run-agl-qemu-octopus' to start
+    ********************************************
 
-3. Run  the following commands on the host's terminal, a QEMU window and a new terminal for AGL will be brought up.
+3. Select image to run using one of above commands.
 
 ```
-    cd $FLUTTER_WORKSPACE
-    unset QEMU_IMAGE
-    source ./setup_env.sh
-    qemu_run
+    run-agl-qemu-octopus
 ```
 
-4.  Login AGL as `root`, and execute `passwd -d agl-driver`.  Type `exit` and login as `agl-driver`.  Run the Flutter Gallery example with the command in AGL's terminal.
+4. If running an updated QEMU image, edit `~/.ssh/known_hosts` and remove previous connection.
+
+5.  Login AGL as `root`, and execute `passwd -d agl-driver`.  Type `exit` and login as `agl-driver`.  Run the Flutter Gallery example with the command in AGL's terminal.
 
 ```
-	flutter-auto --window-type="BG" --b=/usr/share/flutter/gallery --f
+	cd $FLUTTER_WORKSPACE/app/gallery
+    flutter run -d agl-qemu-octopus
 ```
 
 
 ### Profile
 
-1.  Change AGL-qemu flutter_runtime value in $AGL_TOP/sources/meta-agl-devel/meta-agl-flutter/tools/flutter_workspace_config.json to `profile`.
+1.  Setup the flutter workspace.
+
+    source ${FLUTTER_WORKSPACE}/setup_env.sh
+
+The stdout tail should look similar to:
+
+    ********************************************
+    * Type 'run-agl-qemu-master' to start
+    ********************************************
+    ********************************************
+    * Type 'run-agl-qemu-octopus' to start
+    ********************************************
+
+3. Select image to run using one of above commands.
 
 ```
-    {
-        "id": "AGL-qemu",
-        "type": "qemu",
-        "arch": "x86_64",
-        "flutter_runtime": "profile",
-        "runtime": {
-```
-
-This enables download of QEMU `profile` variant.
-
-2. Run the flutter workspace script
-
-3. Run  the following commands on the host's terminal, a QEMU window and a new terminal for AGL will be brought up.
-
-```
-    cd $FLUTTER_WORKSPACE
-    unset QEMU_IMAGE
-    source ./setup_env.sh
-    qemu_run
+    run-agl-qemu-octopus
 ```
 
 4. If running an updated QEMU image, edit `~/.ssh/known_hosts` and remove previous connection.
@@ -202,7 +182,7 @@ Answering with `y` appends QEMU connection to `~/.ssh/known_hosts`
 
 6.  Login AGL as `agl-driver`, and issue the following command
 ```
-	flutter-auto --window-type="BG" --b=/usr/share/flutter/gallery --f --observatory-host=0.0.0.0 --observatory-port=1234
+	flutter-auto --window-type="BG" --b=/usr/share/flutter/gallery/3.3.7/profile --f --observatory-host=0.0.0.0 --observatory-port=1234
 ```
 
 The last line of the output message should look similar to this:

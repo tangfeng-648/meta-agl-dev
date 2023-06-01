@@ -7,9 +7,14 @@ require agl-image-flutter.inc
 IMAGE_INSTALL:append = "\
     weston-ini-conf-landscape \
     \
-    flutter-auto-runtimedebug \
+    flutter-auto-with-logging \
     \
-    flutter-engine-runtimedebug-sdk-dev \
+    flutter-engine-sdk-dev \
+    \
+    flutter-gallery \
+    flutter-test-animated-background \
+    flutter-test-texture-egl \
+    \
     "
 
 IMAGE_FEATURES:append = "\

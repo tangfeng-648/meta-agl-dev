@@ -1,6 +1,6 @@
-From 278945f12726692bc8b148ea1a59697a1c01405a Mon Sep 17 00:00:00 2001
+From 164756be1d20b555f43e2eb3160da3efa7d38865 Mon Sep 17 00:00:00 2001
 From: Scott Murray <scott.murray@konsulko.com>
-Date: Mon, 14 Nov 2022 17:58:12 -0500
+Date: Thu, 1 Jun 2023 14:34:03 -0400
 Subject: [PATCH] Add optional agl_shell plugin
 
 Add an optional agl_shell static plugin to expose the activate_app
@@ -10,7 +10,10 @@ application to activate other application surfaces to switch between
 multiple applications as is needed for the AGL demo.
 
 Upstream-Status: Pending
+
 Signed-off-by: Scott Murray <scott.murray@konsulko.com>
+[Updated to work with upstream OSS 0223 release]
+Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
 ---
  cmake/plugins.cmake                         |  5 ++
  shell/engine.cc                             |  6 ++
@@ -18,20 +21,20 @@ Signed-off-by: Scott Murray <scott.murray@konsulko.com>
  shell/platform_channel.cc                   |  6 ++
  shell/static_plugins/agl_shell/agl_shell.cc | 77 +++++++++++++++++++++
  shell/static_plugins/agl_shell/agl_shell.h  | 31 +++++++++
- shell/wayland/display.cc                    |  8 +++
- shell/wayland/display.h                     |  3 +
+ shell/wayland/display.cc                    |  7 ++
+ shell/wayland/display.h                     |  8 +++
  shell/wayland/window.h                      |  2 +
- 9 files changed, 148 insertions(+)
+ 9 files changed, 152 insertions(+)
  create mode 100644 shell/static_plugins/agl_shell/agl_shell.cc
  create mode 100644 shell/static_plugins/agl_shell/agl_shell.h
 
 diff --git a/cmake/plugins.cmake b/cmake/plugins.cmake
-index 6bdc75b..a599f95 100644
+index b720dca..20a55d7 100644
 --- a/cmake/plugins.cmake
 +++ b/cmake/plugins.cmake
-@@ -101,4 +101,9 @@ if (BUILD_PLUGIN_SECURE_STORAGE)
-     pkg_check_modules(PLUGIN_SECURE_STORAGE REQUIRED libsecret-1)
+@@ -123,4 +123,9 @@ if (BUILD_PLUGIN_SECURE_STORAGE)
  endif ()
+ 
  
 +option(BUILD_PLUGIN_AGL_SHELL "Includes AGL Shell Wayland Protocol Plugin" OFF)
 +if (BUILD_PLUGIN_AGL_SHELL)
@@ -40,12 +43,12 @@ index 6bdc75b..a599f95 100644
 +
  message(STATUS "Plugin Config .......... ${PLUGINS}")
 diff --git a/shell/engine.cc b/shell/engine.cc
-index ad0c83c..9ce346d 100644
+index d20b6ba..a0e38e9 100644
 --- a/shell/engine.cc
 +++ b/shell/engine.cc
-@@ -595,3 +595,9 @@ MAYBE_UNUSED TextInput* Engine::GetTextInput() const {
+@@ -614,3 +614,9 @@ MAYBE_UNUSED TextInput* Engine::GetTextInput() const {
+   return m_key_event;
  }
- 
  #endif
 +
 +#if ENABLE_PLUGIN_AGL_SHELL
@@ -54,10 +57,10 @@ index ad0c83c..9ce346d 100644
 +}
 +#endif
 diff --git a/shell/engine.h b/shell/engine.h
-index 501ba4b..4193e7e 100644
+index 94808dc..3a06f51 100644
 --- a/shell/engine.h
 +++ b/shell/engine.h
-@@ -50,6 +50,12 @@ class TextInput;
+@@ -60,6 +60,12 @@ class KeyEvent;
  
  #endif
  
@@ -69,23 +72,23 @@ index 501ba4b..4193e7e 100644
 +
  class Engine {
   public:
-   Engine(FlutterView* view,
-@@ -146,6 +152,10 @@ class Engine {
- 
+   /**
+@@ -445,6 +451,10 @@ class Engine {
+   MAYBE_UNUSED NODISCARD KeyEvent* GetKeyEvent() const;
  #endif
  
 +#if ENABLE_PLUGIN_AGL_SHELL
 +  std::shared_ptr<Display> GetDisplay() const;
 +#endif
 +
-   Backend* GetBackend() {
-     return m_backend;
-   }
+   /**
+    * @brief Get backend of view
+    * @return Backend*
 diff --git a/shell/platform_channel.cc b/shell/platform_channel.cc
-index 10f4715..2c7ab8c 100644
+index b72156a..81d7cb5 100644
 --- a/shell/platform_channel.cc
 +++ b/shell/platform_channel.cc
-@@ -53,6 +53,9 @@
+@@ -62,6 +62,9 @@
  #ifdef ENABLE_PLUGIN_SECURE_STORAGE
  #include "static_plugins/secure_storage/secure_storage.h"
  #endif
@@ -95,7 +98,7 @@ index 10f4715..2c7ab8c 100644
  
  PlatformChannel* PlatformChannel::singleton = nullptr;
  
-@@ -101,4 +104,7 @@ PlatformChannel::PlatformChannel() {
+@@ -122,4 +125,7 @@ PlatformChannel::PlatformChannel() {
    RegisterCallback(SecureStorage::kChannelName,
                     &SecureStorage::OnPlatformMessage);
  #endif
@@ -105,7 +108,7 @@ index 10f4715..2c7ab8c 100644
  }
 diff --git a/shell/static_plugins/agl_shell/agl_shell.cc b/shell/static_plugins/agl_shell/agl_shell.cc
 new file mode 100644
-index 0000000..81627b6
+index 0000000..e6160a5
 --- /dev/null
 +++ b/shell/static_plugins/agl_shell/agl_shell.cc
 @@ -0,0 +1,77 @@
@@ -135,7 +138,7 @@ index 0000000..81627b6
 +#include <iostream>
 +
 +void AglShell::OnPlatformMessage(const FlutterPlatformMessage* message,
-+                                    void* userdata) {
++                                 void* userdata) {
 +  std::unique_ptr<std::vector<uint8_t>> result;
 +  auto engine = reinterpret_cast<Engine*>(userdata);
 +  auto& codec = flutter::StandardMethodCodec::GetInstance();
@@ -182,13 +185,13 @@ index 0000000..81627b6
 +    result = codec.EncodeErrorEnvelope("unhandled_method", "Unhandled Method");
 +  }
 +
-+ done:
++done:
 +  engine->SendPlatformMessageResponse(message->response_handle, result->data(),
 +                                      result->size());
 +}
 diff --git a/shell/static_plugins/agl_shell/agl_shell.h b/shell/static_plugins/agl_shell/agl_shell.h
 new file mode 100644
-index 0000000..747eb36
+index 0000000..698e44c
 --- /dev/null
 +++ b/shell/static_plugins/agl_shell/agl_shell.h
 @@ -0,0 +1,31 @@
@@ -211,7 +214,7 @@ index 0000000..747eb36
 +
 +#pragma once
 +
-+#include <flutter_embedder.h>
++#include <shell/platform/embedder/embedder.h>
 +
 +class AglShell {
 + public:
@@ -224,51 +227,55 @@ index 0000000..747eb36
 +  static constexpr char kMethodActivateApp[] = "activate_app";
 +};
 diff --git a/shell/wayland/display.cc b/shell/wayland/display.cc
-index 5d78471..48262c3 100644
+index 9351fb9..583d8ba 100644
 --- a/shell/wayland/display.cc
 +++ b/shell/wayland/display.cc
-@@ -697,6 +697,14 @@ void Display::AglShellDoPanel(struct wl_surface* surface,
+@@ -845,6 +845,13 @@ void Display::AglShellDoReady() const {
    }
  }
  
-+void Display::AglShellDoActivate(const std::string& app_id,
-+                                 size_t index) {
-+  if (m_agl_shell) {
-+    agl_shell_activate_app(m_agl_shell, app_id.c_str(),
++void Display::AglShellDoActivate(const std::string& app_id, size_t index) {
++  if (m_agl.shell) {
++    agl_shell_activate_app(m_agl.shell, app_id.c_str(),
 +                           m_all_outputs[index]->output);
 +  }
 +}
 +
- void Display::AglShellDoReady() {
-   if (m_agl_shell) {
-     agl_shell_ready(m_agl_shell);
+ void Display::SetEngine(wl_surface* surface, Engine* engine) {
+   m_active_engine = engine;
+   m_active_surface = surface;
 diff --git a/shell/wayland/display.h b/shell/wayland/display.h
-index bf05b27..c628c8c 100644
+index daeefea..3efdc9c 100644
 --- a/shell/wayland/display.h
 +++ b/shell/wayland/display.h
-@@ -82,6 +82,9 @@ class Display {
-                        enum agl_shell_edge mode,
-                        size_t index);
+@@ -150,6 +150,14 @@ class Display {
+    */
+   void AglShellDoReady() const;
  
-+  void AglShellDoActivate(const std::string& app_id,
-+                          size_t index);
++  /**
++   * @brief AglShellDoActivate:
++   * @return void
++   * @relation
++   * wayland, agl-shell
++   */
++  void AglShellDoActivate(const std::string& app_id, size_t index);
 +
-   void AglShellDoReady();
- 
-   void SetEngine(wl_surface* surface, Engine* engine);
+   /**
+    * @brief Set Engine
+    * @param[in] surface Image
 diff --git a/shell/wayland/window.h b/shell/wayland/window.h
-index 4b5c726..b4d0be3 100644
+index c0f2abc..da9cf45 100644
 --- a/shell/wayland/window.h
 +++ b/shell/wayland/window.h
-@@ -81,6 +81,8 @@ class WaylandWindow {
-   uint32_t m_fps_counter;
-   static window_type get_window_type(const std::string& type);
+@@ -127,6 +127,8 @@ class WaylandWindow {
+     return std::pair<int32_t, int32_t>{m_geometry.width, m_geometry.height};
+   }
  
 +  std::shared_ptr<Display> GetDisplay() { return m_display; }
 +
   private:
-   struct shm_buffer {
-     struct wl_buffer* buffer;
+   size_t m_index;
+   std::shared_ptr<Display> m_display;
 -- 
-2.38.1
+2.40.1
 
