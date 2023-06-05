@@ -1,4 +1,4 @@
-From 164756be1d20b555f43e2eb3160da3efa7d38865 Mon Sep 17 00:00:00 2001
+From 413898c43c8f66a7d49fe8bb74a85ce67733bc86 Mon Sep 17 00:00:00 2001
 From: Scott Murray <scott.murray@konsulko.com>
 Date: Thu, 1 Jun 2023 14:34:03 -0400
 Subject: [PATCH] Add optional agl_shell plugin
@@ -14,6 +14,7 @@ Upstream-Status: Pending
 Signed-off-by: Scott Murray <scott.murray@konsulko.com>
 [Updated to work with upstream OSS 0223 release]
 Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
+
 ---
  cmake/plugins.cmake                         |  5 ++
  shell/engine.cc                             |  6 ++
@@ -227,11 +228,11 @@ index 0000000..698e44c
 +  static constexpr char kMethodActivateApp[] = "activate_app";
 +};
 diff --git a/shell/wayland/display.cc b/shell/wayland/display.cc
-index 9351fb9..583d8ba 100644
+index 434dd05..99aa5ff 100644
 --- a/shell/wayland/display.cc
 +++ b/shell/wayland/display.cc
-@@ -845,6 +845,13 @@ void Display::AglShellDoReady() const {
-   }
+@@ -869,6 +869,13 @@ void Display::AglShellDoSetupActivationArea(uint32_t x,
+                                 width, height);
  }
  
 +void Display::AglShellDoActivate(const std::string& app_id, size_t index) {
@@ -245,7 +246,7 @@ index 9351fb9..583d8ba 100644
    m_active_engine = engine;
    m_active_surface = surface;
 diff --git a/shell/wayland/display.h b/shell/wayland/display.h
-index daeefea..3efdc9c 100644
+index 06b0f8b..ef6ea3f 100644
 --- a/shell/wayland/display.h
 +++ b/shell/wayland/display.h
 @@ -150,6 +150,14 @@ class Display {
@@ -261,13 +262,13 @@ index daeefea..3efdc9c 100644
 +  void AglShellDoActivate(const std::string& app_id, size_t index);
 +
    /**
-    * @brief Set Engine
-    * @param[in] surface Image
+    * @brief AglShell: Set up an activation area where to display the client's
+    * window
 diff --git a/shell/wayland/window.h b/shell/wayland/window.h
-index c0f2abc..da9cf45 100644
+index d5e3c77..677dbdc 100644
 --- a/shell/wayland/window.h
 +++ b/shell/wayland/window.h
-@@ -127,6 +127,8 @@ class WaylandWindow {
+@@ -129,6 +129,8 @@ class WaylandWindow {
      return std::pair<int32_t, int32_t>{m_geometry.width, m_geometry.height};
    }
  
@@ -276,6 +277,3 @@ index c0f2abc..da9cf45 100644
   private:
    size_t m_index;
    std::shared_ptr<Display> m_display;
--- 
-2.40.1
-
