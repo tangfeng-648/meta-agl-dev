@@ -1,6 +1,6 @@
-SUMMARY = "A minimal container host image"
+require recipes-platform/images/agl-image-boot.bb
 
-require recipes-platform/images/agl-image-boot.inc
+SUMMARY = "A minimal container host image"
 
 IMAGE_INSTALL += " \
     kernel-image \
@@ -10,8 +10,6 @@ IMAGE_INSTALL += " \
 "
 
 CONTAINER_IMAGES ??= ""
-
-IMAGE_LINGUAS ?= " "
 
 NO_RECOMMENDATIONS = "1"
 
