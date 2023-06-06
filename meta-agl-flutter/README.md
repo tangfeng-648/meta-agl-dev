@@ -1,14 +1,14 @@
 # meta-agl-flutter
 
-## Steps to build `agl-demo-platform` image
+## Steps to build `agl-ivi-demo-platform-flutter` image
 
 ```
     export AGL_TOP=$HOME/workspace_agl
     mkdir -p $AGL_TOP && cd $AGL_TOP
     repo init -u https://gerrit.automotivelinux.org/gerrit/AGL/AGL-repo -b master
     repo sync -j $(nproc)
-    source meta-agl/scripts/aglsetup.sh -m qemux86-64 agl-demo agl-flutter
-    bitbake agl-demo-platform
+    source meta-agl/scripts/aglsetup.sh -m qemux86-64 agl-demo
+    bitbake agl-ivi-demo-platform-flutter
 ```
 
 This builds AGL demo image that includes Flutter runtime={debug,profile,release}.
@@ -57,9 +57,7 @@ Additional documentation available [here](https://github.com/meta-flutter/meta-f
 
 ## Startup Service
 
-If you include `flutter-gallery-init` it will install a systemd user service, which starts the Flutter Gallery on boot.  This is not included in the minimal images.
-
-At runtime you can edit `/usr/share/flutter/default.json` to point to any Flutter bundle.
+This layer includes an example systemd user service for the Flutter Gallery application which is disabled by default.  It can be used to start the application in the minimal image by doing 'systemctl start flutter-gallery'.
 
 
 ## `/usr/share/flutter/default.json`

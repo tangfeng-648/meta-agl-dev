@@ -1,10 +1,11 @@
-SUMMARY = "Baseline Flutter Image for Development"
+require recipes-platform/images/agl-image-compositor.bb
 
+SUMMARY = "Baseline Flutter Image for Development"
 LICENSE = "MIT"
 
-require agl-image-flutter.inc
+CLANGSDK = "1"
 
-IMAGE_INSTALL:append = "\
+IMAGE_INSTALL += "\
     weston-ini-conf-landscape \
     \
     flutter-auto-with-logging \
@@ -17,6 +18,6 @@ IMAGE_INSTALL:append = "\
     \
     "
 
-IMAGE_FEATURES:append = "\
+IMAGE_FEATURES += "\
     ssh-server-openssh \
     "

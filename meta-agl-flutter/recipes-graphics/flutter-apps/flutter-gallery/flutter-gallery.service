@@ -3,8 +3,11 @@ Requires=agl-compositor.service
 After=agl-compositor.service
 
 [Service]
-ExecStart=/usr/bin/flutter-auto --j=/usr/share/flutter/default.json --b=/usr/share/flutter/gallery --f
-Restart=on-failure
+User=agl-driver
+EnvironmentFile=/etc/default/flutter
+EnvironmentFile=-/etc/default/flutter-gallery
+Environment=XDG_RUNTIME_DIR=/run/user/1001/
+ExecStart=/usr/bin/flutter-auto --b=/usr/share/flutter/gallery/${FLUTTER_VERSION}/${FLUTTER_RUNTIME} --f --window-type=BG
 
 [Install]
-WantedBy=agl-session.target
+WantedBy=graphical.target
