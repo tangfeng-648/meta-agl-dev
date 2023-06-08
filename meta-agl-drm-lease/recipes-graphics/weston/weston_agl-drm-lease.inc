@@ -1,4 +1,4 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/weston:"
 
 SRC_URI:append = " \
             file://0001-backend-drm-Add-method-to-import-DRM-fd.patch \

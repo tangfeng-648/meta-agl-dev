@@ -1,4 +1,4 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/kmscube:"
 
 
 SRC_URI += "file://0001-texturator-Use-correct-GL-extension-header.patch \
