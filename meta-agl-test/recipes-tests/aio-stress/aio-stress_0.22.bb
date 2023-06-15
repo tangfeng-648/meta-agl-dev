@@ -27,7 +27,3 @@ do_install:append() {
     install -d ${D}/usr/AGL/agl-test/tests/aio_stress/resource/
     install -m 0755 ${WORKDIR}/aio-stress ${D}/usr/AGL/agl-test/tests/aio_stress/resource/
 }
-
-RDEPENDS:${PN} += " \
-    agl-test-framework \
-"
