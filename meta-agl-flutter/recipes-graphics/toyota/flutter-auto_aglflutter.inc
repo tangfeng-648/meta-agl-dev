@@ -1,6 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-SRC_URI += "file://0001-Add-optional-agl_shell-plugin.patch"
+SRC_URI += "file://0001-Add-optional-agl_shell-plugin.patch \
+	    file://0001-shell-wayland-display-Handle-flags-as-bitfield-entri.patch"
 
 # For now disable gstreamer to avoid needing to enable "commercial"
 # licenses for the stated ffmpeg dependency.
