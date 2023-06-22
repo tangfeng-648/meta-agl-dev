@@ -1,0 +1,44 @@
+From 1301cdf196f7d27dc23cbd3de1b188369a66dc26 Mon Sep 17 00:00:00 2001
+From: "matsui.tetsuo" <matsui.tetsuo@jp.panasonic.com>
+Date: Tue, 10 Dec 2019 10:45:33 +0900
+Subject: [PATCH] Add stride status to virtgpu_3d_transfer_to_host
+
+The gallium driver in mesa-18.2.0 does not support kernel-5.10 stride
+variable definitions. We are currently working on an update to mesa,
+but currently need to use mesa-18.2.0, so the stride variable needs
+to be defined.
+
+Upstream-Status: Inappropriate [embedded specific]
+---
+ src/gallium/winsys/virgl/drm/virgl_drm_winsys.c | 2 +-
+ src/gallium/winsys/virgl/drm/virtgpu_drm.h      | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/gallium/winsys/virgl/drm/virgl_drm_winsys.c b/src/gallium/winsys/virgl/drm/virgl_drm_winsys.c
+index 7f542e7..06a28c1 100644
+--- a/src/gallium/winsys/virgl/drm/virgl_drm_winsys.c
++++ b/src/gallium/winsys/virgl/drm/virgl_drm_winsys.c
+@@ -266,7 +266,7 @@ virgl_bo_transfer_put(struct virgl_winsys *vws,
+    tohostcmd.box.d = box->depth;
+    tohostcmd.offset = buf_offset;
+    tohostcmd.level = level;
+-  // tohostcmd.stride = stride;
++   tohostcmd.stride = stride;
+   // tohostcmd.layer_stride = stride;
+    return drmIoctl(vdws->fd, DRM_IOCTL_VIRTGPU_TRANSFER_TO_HOST, &tohostcmd);
+ }
+diff --git a/src/gallium/winsys/virgl/drm/virtgpu_drm.h b/src/gallium/winsys/virgl/drm/virtgpu_drm.h
+index 30bc3af..1b99a6b 100644
+--- a/src/gallium/winsys/virgl/drm/virtgpu_drm.h
++++ b/src/gallium/winsys/virgl/drm/virtgpu_drm.h
+@@ -102,6 +102,7 @@ struct drm_virtgpu_3d_transfer_to_host {
+ 	struct drm_virtgpu_3d_box box;
+ 	uint32_t level;
+ 	uint32_t offset;
++	uint32_t stride;
+ };
+ 
+ struct drm_virtgpu_3d_transfer_from_host {
+-- 
+2.7.4
+
