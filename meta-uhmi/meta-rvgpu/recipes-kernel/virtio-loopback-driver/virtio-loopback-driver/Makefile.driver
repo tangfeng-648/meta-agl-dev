@@ -1,0 +1,17 @@
+#
+# Makefile for virtio-lo
+#
+ifeq ($(KDIR),)
+$(error "KDIR must be specified.")
+endif
+
+default:
+	$(MAKE) -C $(KDIR) M=$$PWD/src
+
+modules_install:
+	$(MAKE) -C $(KDIR) M=$$PWD/src $@
+
+clean:
+	$(MAKE) -C $(KDIR) M=$$PWD/src $@
+
+.PHONY: default modules_install clean

@@ -1,0 +1,3 @@
+# KBuild for virtio-lo
+obj-m += virtio_lo.o
+virtio_lo-y := virtio_lo_device.o virtio_lo_driver.o
