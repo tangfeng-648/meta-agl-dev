@@ -7,7 +7,7 @@ PN = 'agl-test-framework'
 PV = '1'
 
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/src/agl-test-framework;protocol=https;branch=master"
-SRCREV = "2b0b2c37da795ae77d006308c96a054734ab6d24"
+SRCREV = "fb969436af3ebbdc81c15b23ad8b1ef37a8c2694"
 
 S = "${WORKDIR}/git"
 
