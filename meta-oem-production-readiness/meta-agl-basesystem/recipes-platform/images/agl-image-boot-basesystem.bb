@@ -1,6 +1,6 @@
 SUMMARY = "An AGL small image just capable of allowing a device to boot."
 
-require recipes-platform/images/agl-image-boot.inc
+require recipes-platform/images/agl-image-boot.bb
 
 LICENSE = "MIT"
 
