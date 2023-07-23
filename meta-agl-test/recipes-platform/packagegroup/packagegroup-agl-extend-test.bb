@@ -14,4 +14,5 @@ RDEPENDS:${PN} += " \
     aio-stress \
     stress-ng \
     ltp \
+    linus-stress \
 "
