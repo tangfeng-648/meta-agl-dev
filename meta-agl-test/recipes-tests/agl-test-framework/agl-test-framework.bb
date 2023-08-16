@@ -7,7 +7,7 @@ PN = 'agl-test-framework'
 PV = '1'
 
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/src/agl-test-framework;protocol=https;branch=master"
-SRCREV = "fbae7ac31fd2a895f74c4c57508662eec15f40c1"
+SRCREV = "03bb1cf226206bf361ef665bead92ed8fb3a81f4"
 
 S = "${WORKDIR}/git"
 
@@ -21,19 +21,36 @@ S = "${WORKDIR}/git"
 #           Then, the test name here you should write down: LTP/syscalls
 #
 FRAMEWORK_INSTALL_LIST = " \
+    acl \
     aio_stress \
+    attr \
+    babeltrace \
+    babeltrace2 \
     bash \
     bc \
+    bluez5 \
     busybox \
     bzip2 \
+    coreutils \
+    cpio \
     crashme \
+    curl \
+    diffutils \
+    e2fsprogs \
     expat \
+    flex \
+    gawk \
+    gdbm \
     gdk_pixbuf \
     glib2 \
+    gstreamer \
     json_glib \
+    kbd \
     libpam \
     libxml2 \
     linus_stress \
+    lua \
+    lz4 \
     LTP/math \
     LTP/cve \
     LTP/posix_conformance_tests \
@@ -113,11 +130,16 @@ FILES:${PN}-base += " \
 # Filter for fase mode
 FILES:${PN}-fast = " \
      /usr/AGL/agl-test/tests/aio_stress/* \
+     /usr/AGL/agl-test/tests/attr/* \
      /usr/AGL/agl-test/tests/bc/* \
+     /usr/AGL/agl-test/tests/diffutils/* \
      /usr/AGL/agl-test/tests/expat/* \
+     /usr/AGL/agl-test/tests/flex/* \
      /usr/AGL/agl-test/tests/gdk_pixbuf/* \
      /usr/AGL/agl-test/tests/json_glib/* \
+     /usr/AGL/agl-test/tests/kbd/* \
      /usr/AGL/agl-test/tests/libpam/* \
+     /usr/AGL/agl-test/tests/lua/* \
      /usr/AGL/agl-test/tests/LTP/math/* \
      /usr/AGL/agl-test/tests/stress_ng/* \
      /usr/AGL/agl-test/tests/zlib/* \
@@ -125,11 +147,22 @@ FILES:${PN}-fast = " \
 
 # Filter for standard mode
 FILES:${PN}-standard = " \
+     /usr/AGL/agl-test/tests/acl/* \
+     /usr/AGL/agl-test/tests/babeltrace/* \
+     /usr/AGL/agl-test/tests/babeltrace2/* \
      /usr/AGL/agl-test/tests/bash/* \
+     /usr/AGL/agl-test/tests/bluez5/* \
      /usr/AGL/agl-test/tests/busybox/* \
      /usr/AGL/agl-test/tests/bzip2/* \
+     /usr/AGL/agl-test/tests/coreutils/* \
+     /usr/AGL/agl-test/tests/cpio/* \
      /usr/AGL/agl-test/tests/crashme/* \
+     /usr/AGL/agl-test/tests/curl/* \
+     /usr/AGL/agl-test/tests/e2fsprogs/* \
+     /usr/AGL/agl-test/tests/gawk/* \
+     /usr/AGL/agl-test/tests/gdbm/* \
      /usr/AGL/agl-test/tests/glib2/* \
+     /usr/AGL/agl-test/tests/gstreamer/* \
      /usr/AGL/agl-test/tests/libxml2/* \
      /usr/AGL/agl-test/tests/linus_stress/* \
      /usr/AGL/agl-test/tests/LTP/cve/* \
@@ -140,6 +173,7 @@ FILES:${PN}-standard = " \
 # Filter for extreme mode
 FILES:${PN}-extreme = " \
      /usr/AGL/agl-test/tests/python3/* \
+     /usr/AGL/agl-test/tests/lz4/* \
      /usr/AGL/agl-test/tests/LTP/syscalls/* \
 "
 
