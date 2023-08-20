@@ -40,4 +40,4 @@ FILES:${PN} += " \
 SYSTEMD_PACKAGES = "${PN}"
 SYSTEMD_SERVICE:${PN} = "momiscreen.service"
 
-RDEPENDS:${PN} = "qtsvg "
+RDEPENDS:${PN} = "qtsvg qtsvg-plugins qtsvg-qmlplugins"

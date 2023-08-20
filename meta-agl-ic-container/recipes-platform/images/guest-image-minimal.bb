@@ -8,3 +8,5 @@ IMAGE_INSTALL += " \
     packagegroup-agl-ic-core \
     packagegroup-agl-container-feature-logging-guest \
 "
+
+NO_RECOMMENDATIONS = "1"

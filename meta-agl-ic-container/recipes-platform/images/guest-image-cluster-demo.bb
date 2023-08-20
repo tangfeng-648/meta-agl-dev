@@ -8,8 +8,11 @@ IMAGE_INSTALL += " \
     weston-init-guest \
     weston-ini-conf-guest \
     cluster-refgui \
+    packagegroup-agl-ic-qt \
     pipewire-ic-ipc \
 "
+
+IMAGE_INSTALL:append:raspberrypi4 = " mesa-megadriver"
 
 IMAGE_OVERHEAD_FACTOR = "0"
 EXTRA_IMAGECMD:append = " -L agl-cluster"
