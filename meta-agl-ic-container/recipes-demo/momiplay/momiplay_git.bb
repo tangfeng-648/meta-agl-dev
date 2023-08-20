@@ -12,13 +12,13 @@ DEPENDS = " \
     qtmultimedia \
     "
 
-PV = "0.2.0"
+PV = "1.0.0"
 
-SRC_URI = "git://github.com/AGLExport/momiplayer.git;protocol=https;branch=master \
+SRC_URI = "git://git.automotivelinux.org/apps/momiplayer;protocol=https;branch=${AGL_BRANCH} \
            file://momiplay.service \
            file://momiplay \
           "
-SRCREV = "b4715bf924ea295feaaf8fbdb4a9c3da75f57591"
+SRCREV = "cb21f0fe4259c3b427ef7b2dd2c43fa73369ae42"
 
 S = "${WORKDIR}/git"
 

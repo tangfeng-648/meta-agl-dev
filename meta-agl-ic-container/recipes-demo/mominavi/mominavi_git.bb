@@ -13,13 +13,13 @@ DEPENDS = " \
     qtwebsockets \
     "
 
-PV = "0.2.0"
+PV = "1.0.0"
 
-SRC_URI = "git://github.com/AGLExport/mominavi.git;protocol=https;branch=master \
+SRC_URI = "git://git.automotivelinux.org/apps/mominavi;protocol=https;branch=${AGL_BRANCH} \
            file://mominavi.service \
            file://mominavi \
           "
-SRCREV = "553776e75da02b27224748756da55d38b6c7241f"
+SRCREV = "e08336ba085d798e88e33c24b850956d6e50cc51"
 
 S = "${WORKDIR}/git"
 

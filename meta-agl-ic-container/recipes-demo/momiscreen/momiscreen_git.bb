@@ -11,13 +11,13 @@ DEPENDS = " \
     qtsvg \
     "
 
-PV = "0.2.0"
+PV = "1.0.0"
 
-SRC_URI = "git://github.com/AGLExport/momiscreen.git;protocol=https;branch=main \
+SRC_URI = "git://git.automotivelinux.org/apps/momiscreen;protocol=https;branch=${AGL_BRANCH} \
            file://momiscreen.service \
            file://momiscreen \
           "
-SRCREV = "bc3ef09ffad15b97941f28b165dc2019f5950105"
+SRCREV = "22b44f911bf6c53298055626cef671a24e9e9069"
 
 S = "${WORKDIR}/git"
 
