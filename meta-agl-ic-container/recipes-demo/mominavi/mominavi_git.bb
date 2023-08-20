@@ -51,7 +51,7 @@ SYSTEMD_PACKAGES = "${PN}"
 SYSTEMD_SERVICE:${PN} = "mominavi.service"
 
 RDEPENDS:${PN} = " \
-    qtsvg \
-    qtwebsockets \
-    qtlocation \
+    qtsvg qtsvg-plugins qtsvg-qmlplugins \
+    qtwebsockets qtwebsockets-plugins qtwebsockets-qmlplugins \
+    qtlocation qtlocation-plugins qtlocation-qmlplugins \
     "

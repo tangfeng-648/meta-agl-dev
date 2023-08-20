@@ -34,4 +34,4 @@ VIRTUAL-RUNTIME_net_manager = "systemd"
 
 
 # Under the this line, shall describe machine specific package.
-IMAGE_INSTALL:append:rcar-gen3 = " kernel-module-gles "
+IMAGE_INSTALL:append:rcar-gen3 = " kernel-module-gles gles-user-module-firmware"

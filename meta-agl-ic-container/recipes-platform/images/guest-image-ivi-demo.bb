@@ -12,9 +12,7 @@ IMAGE_INSTALL += " \
     mominavi \
     momiplay \
     momiscreen \
-    qtquickcontrols \
-    qtquickcontrols2 \
-    qtwayland \
+    packagegroup-agl-ic-qt \
     systemd-netif-config \
     ttf-dejavu-sans \
     ttf-dejavu-sans-mono \
@@ -28,6 +26,8 @@ IMAGE_INSTALL += " \
     packagegroup-pipewire-base \
     wireplumber-policy-config-agl \
 "
+
+IMAGE_INSTALL:append:raspberrypi4 = " mesa-megadriver"
 
 IMAGE_OVERHEAD_FACTOR = "0"
 EXTRA_IMAGECMD:append = " -L agl-momi-ivi"

@@ -43,6 +43,6 @@ SYSTEMD_SERVICE:${PN} = "momiplay.service"
 SYSTEMD_AUTO_ENABLE:${PN} = "disable"
 
 RDEPENDS:${PN} = " \
-    qtsvg \
-    qtmultimedia \
+    qtsvg qtsvg-plugins qtsvg-qmlplugins \
+    qtmultimedia qtmultimedia-plugins qtmultimedia-qmlplugins \
     "
