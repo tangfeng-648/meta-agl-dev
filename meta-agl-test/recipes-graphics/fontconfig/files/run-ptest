@@ -1,0 +1,14 @@
+#!/bin/sh
+
+WORKDIR=@PTEST_PATH@/test/
+PROG=@PTEST_PATH@/test-driver
+LOGDIR=@PTEST_PATH@/logs/
+
+rm -rf ${LOGDIR}
+mkdir -p ${LOGDIR}
+cd ${WORKDIR}
+for file in `ls ${WORKDIR} | grep test | grep -v json`
+do
+    ${PROG} --test-name ${file} --log-file ${LOGDIR}${file}.log --trs-file ${LOGDIR}${file}.trs ${WORKDIR}${file}
+done
+

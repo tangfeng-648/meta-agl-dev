@@ -1,0 +1,28 @@
+Fix compile problem for ptest
+
+Change SRCDIR and FONTFILE in test/Makefile.am for ptest.
+
+Upstream-Status: Inappropriate [OE-Specific]
+Signed-off-by: Qiu Tingting <qiutt@fujitsu.com>
+
+diff -rNu a/test/Makefile.am b/test/Makefile.am
+--- a/test/Makefile.am	2023-08-03 15:10:50.830916551 +0800
++++ b/test/Makefile.am	2023-08-03 16:16:10.178859661 +0800
+@@ -76,7 +76,7 @@
+ endif
+ check_PROGRAMS += test-bz89617
+ test_bz89617_CFLAGS = \
+-	-DSRCDIR="\"$(abs_srcdir)\""
++	-DSRCDIR="\"/usr/lib/fontconfig/ptest/test/\""
+ 
+ test_bz89617_LDADD = $(top_builddir)/src/libfontconfig.la
+ TESTS += test-bz89617
+@@ -117,7 +117,7 @@
+ 	-I$(top_builddir)/src				\
+ 	-I$(top_srcdir)					\
+ 	-I$(top_srcdir)/src				\
+-	-DFONTFILE='"$(abs_top_srcdir)/test/4x6.pcf"'	\
++	-DFONTFILE='"/usr/lib/fontconfig/ptest/test/4x6.pcf"'	\
+ 	-DHAVE_CONFIG_H					\
+ 	$(NULL)
+ test_bz106632_LDADD = $(top_builddir)/src/libfontconfig.la
