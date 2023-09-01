@@ -1,0 +1,65 @@
+From c2396f1a329f954f37aa59d5eabda819c06e954e Mon Sep 17 00:00:00 2023
+From: Yan <yanxk.fnst@fujitsu.com>
+Date: Fri, 25 Aug 2023 09:44:01 +0800
+Subject: [PATCH] boa: modify conf file matching AGL system
+
+set boa and boa_index working path to /usr/bin
+error log and access log are re-directed to /var/log/
+default index reset to homepage
+
+Upstream-Status: Pending
+Signed-off-by: Yan <yanxk.fnst@fujitsu.com>
+---
+ boa.conf | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/boa.conf b/boa.conf
+index e3775db..77c9f9b 100644
+--- a/boa.conf
++++ b/boa.conf
+@@ -59,7 +59,7 @@ Group nogroup
+ # Set to /dev/null if you don't want errors logged.
+ # If unset, defaults to /dev/stderr
+ 
+-ErrorLog /var/log/boa/error_log
++ErrorLog /var/log/boa_error_log
+ # Please NOTE: Sending the logs to a pipe ('|'), as shown below,
+ #  is somewhat experimental and might fail under heavy load.
+ # "Usual libc implementations of printf will stall the whole
+@@ -71,7 +71,7 @@ ErrorLog /var/log/boa/error_log
+ # Comment out or set to /dev/null (less effective) to disable 
+ # Access logging.
+ 
+-AccessLog /var/log/boa/access_log
++AccessLog /var/log/boa_access_log
+ # Please NOTE: Sending the logs to a pipe ('|'), as shown below,
+ #  is somewhat experimental and might fail under heavy load.
+ # "Usual libc implementations of printf will stall the whole
+@@ -108,7 +108,7 @@ AccessLog /var/log/boa/access_log
+ # DocumentRoot: The root directory of the HTML documents.
+ # Comment out to disable server non user files.
+ 
+-DocumentRoot /var/www
++DocumentRoot /etc/boa/www
+ 
+ # UserDir: The name of the directory which is appended onto a user's home
+ # directory if a ~user request is recieved.
+@@ -120,14 +120,14 @@ UserDir public_html
+ # fly creation of directory indexes can be _slow_.
+ # Comment out to always use DirectoryMaker
+ 
+-DirectoryIndex index.html
++DirectoryIndex homepage.html
+ 
+ # DirectoryMaker: Name of program used to create a directory listing.
+ # Comment out to disable directory listings.  If both this and
+ # DirectoryIndex are commented out, accessing a directory will give
+ # an error (though accessing files in the directory are still ok).
+ 
+-DirectoryMaker /usr/lib/boa/boa_indexer
++DirectoryMaker /usr/bin/boa_indexer
+ 
+ # DirectoryCache: If DirectoryIndex doesn't exist, and DirectoryMaker
+ # has been commented out, the the on-the-fly indexing of Boa can be used
+--
+2.25.1
