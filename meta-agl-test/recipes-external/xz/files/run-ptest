@@ -1,0 +1,13 @@
+#!/bin/sh
+
+cd ./tests
+for i in `ls test*`; do
+    ./$i
+    result=$?
+    if [[ $result == "0" ]]
+    then
+        echo "PASS: $i"
+    else
+        echo "FAIL: $i"
+    fi
+done
