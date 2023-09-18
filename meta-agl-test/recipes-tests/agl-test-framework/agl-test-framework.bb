@@ -7,7 +7,7 @@ PN = 'agl-test-framework'
 PV = '1'
 
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/src/agl-test-framework;protocol=https;branch=master"
-SRCREV = "03bb1cf226206bf361ef665bead92ed8fb3a81f4"
+SRCREV = "ca7e609b502a3ad9db2c0dc5a86885f784c952b5"
 
 S = "${WORKDIR}/git"
 
@@ -39,6 +39,7 @@ FRAMEWORK_INSTALL_LIST = " \
     e2fsprogs \
     expat \
     flex \
+    fontconfig \
     gawk \
     gdbm \
     gdk_pixbuf \
@@ -58,6 +59,7 @@ FRAMEWORK_INSTALL_LIST = " \
     openssl \
     python3 \
     stress_ng \
+    xz \
     zlib \
 "
 
@@ -135,6 +137,7 @@ FILES:${PN}-fast = " \
      /usr/AGL/agl-test/tests/diffutils/* \
      /usr/AGL/agl-test/tests/expat/* \
      /usr/AGL/agl-test/tests/flex/* \
+     /usr/AGL/agl-test/tests/fontconfig/* \
      /usr/AGL/agl-test/tests/gdk_pixbuf/* \
      /usr/AGL/agl-test/tests/json_glib/* \
      /usr/AGL/agl-test/tests/kbd/* \
@@ -142,6 +145,7 @@ FILES:${PN}-fast = " \
      /usr/AGL/agl-test/tests/lua/* \
      /usr/AGL/agl-test/tests/LTP/math/* \
      /usr/AGL/agl-test/tests/stress_ng/* \
+     /usr/AGL/agl-test/tests/xz/* \
      /usr/AGL/agl-test/tests/zlib/* \
 "
 
