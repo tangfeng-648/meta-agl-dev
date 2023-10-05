@@ -59,12 +59,6 @@ EXTRA_IMAGE_FEATURES += "ptest-pkgs"
 The above method may be the easiest one but it's not recommended because `ptests` increase the image build times by a substantial amount. You can look into the official [vosk-api docs](https://alphacephei.com/vosk/install) for usage and other ways of testing.
 
 ### Test Snips
-(**Important**) Currently, there are some library linking issues between NumPy, SciPy, and OpenBLAS. While we investigate and fix them you need to use `LD_PRELOAD` method as a workaround for Snips to work properly. Input the following command as soon as you boot into the target image:
-```shell
-$ export LD_PRELOAD=/usr/lib/libopenblas.so.0
-```
-
-
 In order to test the Snips NLU Intent Engine you can use the sample [pre-trained model](https://github.com/malik727/snips-model-agl), by default it automatically gets built into the target image when you include this layer. To perform inference using this model you can run the following command inside your target image:
 ```shell
 $ snips-inference parse /usr/share/nlu/snips/model/ -q "your command here"

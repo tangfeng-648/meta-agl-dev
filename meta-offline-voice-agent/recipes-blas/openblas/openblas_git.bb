@@ -49,13 +49,16 @@ EXTRA_OEMAKE = "\
 do_install() {
     oe_runmake PREFIX=${D}${prefix} install
     rm -rf ${D}${bindir} ${D}${libdir}/cmake
+
     # fixup pkgconfig file
     sed -i -e "s#libdir=/.*#libdir=${libdir}#" ${D}${libdir}/pkgconfig/openblas.pc
     sed -i -e "s#includedir=/.*#includedir=${includedir}#" ${D}${libdir}/pkgconfig/openblas.pc
 
     cat  ${D}${libdir}/pkgconfig/openblas.pc
 
+    # Create symlink from libblas.so to libopenblas.so.0, required by scipy
+    ln -s libopenblas.so.0 ${D}${libdir}/libblas.so
 }
 
-FILES:${PN}-dev = "${includedir} ${libdir}/lib${PN}.so"
 FILES:${PN}     = "${libdir}/*"
+FILES:${PN}-dev = "${includedir} ${libdir}/libopenblas.so ${libdir}/libblas.so"

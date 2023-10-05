@@ -19,6 +19,7 @@ DEPENDS += " \
 	${PYTHON_PN}-beniget-native \
 	${PYTHON_PN}-ply-native \
 	lapack \
+	openblas \
 "
 
 inherit pypi setuptools3
@@ -26,6 +27,7 @@ inherit pypi setuptools3
 RDEPENDS:${PN} += " \
 	${PYTHON_PN}-numpy \
 	lapack \
+	openblas \
 "
 
 CLEANBROKEN = "1"

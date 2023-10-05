@@ -20,6 +20,7 @@ DEPENDS += " \
 	${PYTHON_PN}-beniget-native \
 	${PYTHON_PN}-ply-native \
 	lapack-native \
+	openblas-native \
 "
 
 CLEANBROKEN = "1"
