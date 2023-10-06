@@ -1,9 +1,10 @@
 ---
 description: Feature agl-offline-voice-agent
-authors: Aman Arora <aman.arora9848@gmail.com>
+authors: Malik Talha <talhamalik727x@gmail.com>, Aman Arora <aman.arora9848@gmail.com>
 ---
 
 ### Feature agl-offline-voice-agent
 
 - Feature template for meta-offline-voice-agent layer.
-- Vosk Voice Model included: vosk-model-small-en-us
+- Snips and RASA framework included.
+- Vosk Voice Model included: vosk-model-small-en-us.

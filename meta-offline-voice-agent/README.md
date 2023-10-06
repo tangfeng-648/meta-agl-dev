@@ -9,25 +9,28 @@ The `meta-offline-voice-agent` is an AGL Layer that enables Offline Speech Recog
     - [Build Layer](#build-layer)
     - [Test Vosk](#test-vosk)
     - [Test Snips](#test-snips)
+    - [Test RASA](#test-rasa)
 - [Supported Targets](#supported-targets)
 - [Maintainers](#maintainers)
 
 ## Introduction
-The `meta-offline-voice-agent` layer integrates the Vosk API and Snips (Inference Only) to provide offline speech recognition and command execution for Automotive Grade Linux. The layer is based on the Kaldi ASR Toolkit, which allows for accurate and efficient speech recognition in the AGL platform, and Snips which provides us with a lightweight Natural Language Intent Engine.
+The `meta-offline-voice-agent` layer integrates the Vosk API, Snips (Inference Only), and RASA to provide offline speech recognition and command execution for Automotive Grade Linux. The layer is based on the Kaldi ASR Toolkit, which allows for accurate and efficient speech recognition in the AGL platform, Snips which provides us with a lightweight Natural Language Intent Engine, and RASA a complete end-to-end ML framework for developing and creating chatbots and voice assistants.
 
 ## Layer Status
 **Status**: *WIP (Work In Progress)*
 
-This layer is currently in development and integrates the Vosk, Snips (Inference Only), and RASA libraries. Speech recognition has been verified using test scripts from the [vosk-api python examples](https://github.com/alphacep/vosk-api/tree/master/python/example). Additionally, Snips has undergone testing and verification to ensure its functionality. Currently, work on integrating RASA and command execution is still in progress.
+This layer is currently in development and integrates the Vosk, Snips (Inference Only), and RASA libraries. Speech recognition has been verified using test scripts from the [vosk-api python examples](https://github.com/alphacep/vosk-api/tree/master/python/example). Additionally, both Snips and RASA have undergone testing and verification to ensure their functionality. Currently, work on command execution is still in progress.
 
 ## External Dependencies
-This layer does not have any external layer dependency.
+This layer depends on the following external layers:
+- [meta-tensorflow](https://git.yoctoproject.org/meta-tensorflow)
 
 ## Working Features
 The following features are currently working in the `meta-offline-voice-agent` layer:
 - [Vosk API (Python)](https://github.com/alphacep/vosk-api/tree/master/python)
 - [Vosk Websocket Server](https://github.com/alphacep/vosk-server/tree/master/websocket)
 - [Snips Inference](https://github.com/malik727/snips-inference-agl)
+- [RASA](https://github.com/RasaHQ/rasa)
 
 ## Testing Features on AGL
     
@@ -65,6 +68,14 @@ $ snips-inference parse /usr/share/nlu/snips/model/ -q "your command here"
 ```
 
 This is just a sample model and may not be able to handle all types of commands. You can always train your own intent engine model using your custom dataset, for more details on how to do that you can look into the README files of [snips-sdk-agl](https://github.com/malik727/snips-sdk-agl), [snips-model-agl](https://github.com/malik727/snips-model-agl), and [snips-inference-agl](https://github.com/malik727/snips-inference-agl).
+
+### Test RASA
+In order to test the RASA NLU Intent Engine you can use the sample [pre-trained model](https://github.com/malik727/rasa-model-agl), by default it automatically gets built into the target image when you include this layer. To perform inference using this model you can run the following command inside your target image:
+```shell
+$ rasa shell -m /usr/share/nlu/rasa/models/
+```
+
+This will open an interactive shell where you can issue commands and get related results. This is just a sample model and may not be able to handle all types of commands. You can always train your own RASA intent engine model using your custom dataset by following the official [RASA docs](https://rasa.com/docs/rasa/).
 
 ## Supported Targets
 Currently, the following targets are fully supported:
