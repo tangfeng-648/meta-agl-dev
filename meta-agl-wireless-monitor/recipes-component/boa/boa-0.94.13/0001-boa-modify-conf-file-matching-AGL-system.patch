@@ -1,20 +1,21 @@
-From c2396f1a329f954f37aa59d5eabda819c06e954e Mon Sep 17 00:00:00 2023
+From 6b227adac5dbabc958ef215f15637d3c4d21d759 Mon Sep 17 00:00:00 2001
 From: Yan <yanxk.fnst@fujitsu.com>
-Date: Fri, 25 Aug 2023 09:44:01 +0800
+Date: Sat, 7 Oct 2023 18:27:42 +0800
 Subject: [PATCH] boa: modify conf file matching AGL system
 
 set boa and boa_index working path to /usr/bin
 error log and access log are re-directed to /var/log/
 default index reset to homepage
+cgi-bin folder to /usr/bin/cgi-bin
 
 Upstream-Status: Pending
 Signed-off-by: Yan <yanxk.fnst@fujitsu.com>
 ---
- boa.conf | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ boa.conf | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/boa.conf b/boa.conf
-index e3775db..77c9f9b 100644
+index e3775db..4da9983 100644
 --- a/boa.conf
 +++ b/boa.conf
 @@ -59,7 +59,7 @@ Group nogroup
@@ -61,5 +62,13 @@ index e3775db..77c9f9b 100644
  
  # DirectoryCache: If DirectoryIndex doesn't exist, and DirectoryMaker
  # has been commented out, the the on-the-fly indexing of Boa can be used
---
+@@ -190,5 +190,5 @@ Alias /doc /usr/doc
+ # ScriptAlias: Maps a virtual path to a directory for serving scripts
+ # Example: ScriptAlias /htbin/ /www/htbin/
+ 
+-ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
++ScriptAlias /cgi-bin/ /usr/bin/cgi-bin/
+ 
+-- 
 2.25.1
+
