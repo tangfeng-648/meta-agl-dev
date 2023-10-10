@@ -9,10 +9,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=441c28d2cf86e15a37fa47e15a72fbac \
 inherit pkgconfig
 
 DEPENDS = "glib-2.0 zlib pixman bison-native ninja-native"
-SRC_URI = "git://git.virtualopensystems.com/virtio-loopback/qemu.git;protocol=https;branch=beta-release \
-           file://0001-Add-NULL-array-terminate-entry-for-arg-parsing-optio.patch \
-           "
-SRCREV = "bf75006d5415b4e485f0bc30b8d7461b3616e9ca"
+SRC_URI = "git://gerrit.automotivelinux.org/gerrit/src/virtio/qemu;protocol=https;branch=master"
+SRCREV = "af1a266670d040d2f4083ff309d732d648afba2a"
 S = "${WORKDIR}/git"
 
 UPSTREAM_CHECK_REGEX = "qemu-(?P<pver>\d+(\.\d+)+)\.tar"
