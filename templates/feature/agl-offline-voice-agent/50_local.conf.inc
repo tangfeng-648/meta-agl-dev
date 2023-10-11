@@ -23,3 +23,8 @@ IMAGE_INSTALL:append = " \
     "
 
 PREFERRED_PROVIDER_virtual/vosk-model ?= "vosk-model-small-en-us"
+
+
+# bump bazel limits
+BAZEL_JOBS = "HOST_CPUS*.4"
+BAZEL_MEM = "HOST_RAM*.4"
