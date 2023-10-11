@@ -13,6 +13,7 @@ SRC_URI = "git://gerrit.automotivelinux.org/gerrit/staging/incar-wireless-monito
 SRCREV = "927829c95bac0874b07b0aaee1663f42f5e59530"
 
 RDEPENDS:${PN} += "boa"
+RDEPENDS:${PN} += "mjpg-streamer"
 
 do_install() {
     install -d ${D}/etc/boa/www/
