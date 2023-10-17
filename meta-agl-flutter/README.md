@@ -24,7 +24,7 @@ This builds AGL demo image that includes Flutter runtime={debug,profile,release}
     source meta-agl/scripts/aglsetup.sh -m qemux86-64 agl-devel agl-flutter
     bitbake agl-image-flutter
 ```
-  * include Flutter engine runtime={debug,release,profile}
+  * includes Flutter engine runtime={debug,release,profile}
   * includes Flutter Engine SDK
   * includes SSH server
   * live debugging/profiling with target via host
@@ -83,6 +83,11 @@ If qemu_run was sucessfully invoked, then this platform will be an available `cu
 
 Append `--device-id=AGL-qemu` to `flutter <cmd>` to select this device.
 
+### Flutter Engine
+
+To enable local build of Flutter Engine set `tools/configs/flutter-engine.json` load key to true.
+
+This enables debugging as custom engine development.
 
 ## Steps to Test Flutter Images
 

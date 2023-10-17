@@ -1,6 +1,7 @@
 [
     {
         "uri": "https://github.com/toyota-connected/ivi-homescreen.git",
+        "rev": "f42c61c5349ed4981767239f6ba052c315d89c3a",
         "branch": "agl"
     },
     {
@@ -8,24 +9,15 @@
         "branch": "main"
     },
     {
-        "uri": "https://github.com/gskinnerTeam/flutter-wonderous-app.git",
-        "branch": "main",
-        "pubspec_path": "flutter-wonderous-app"
-    },
-    {
-        "uri": "https://github.com/flutter/pinball.git",
-        "branch": "main",
-        "pubspec_path": "pinball"
-    },
-    {
         "uri": "https://github.com/flutter/gallery.git",
         "branch": "master",
-        "rev": "9eb785cb997ff56c46e933c1c591f0a6f31454f6",
+        "rev": "22a07bf664a2128684ec245032c05b1c8f10048e",
         "pubspec_path": "gallery"
     },
     {
         "uri": "https://github.com/mogol/flutter_secure_storage.git",
         "branch": "develop",
+        "rev": "3bb93366161a787b07c45d8ce98c7405b40fbf1f",
         "pubspec_path": "flutter_secure_storage/flutter_secure_storage/example"
     },
     {
@@ -35,14 +27,12 @@
         "pubspec_path": "flutter_animated_background/example"
     },
     {
-        "uri": "https://github.com/felipeerias/flutter_homescreen.git",
-        "branch": "main",
-        "rev": "08bf271f7f1f14153a41005718a2090fa8e783f0",
-        "pubspec_path": "flutter_homescreen"
-    },
-    {
         "uri": "https://github.com/bernardpumped/ped.git",
         "branch": "agl",
         "pubspec_path": "ped"
+    },
+    {
+        "uri": "https://chromium.googlesource.com/chromium/tools/depot_tools.git",
+        "branch": "main"
     }
 ]

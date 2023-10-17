@@ -8,12 +8,11 @@ CLANGSDK = "1"
 IMAGE_INSTALL += "\
     weston-ini-conf-landscape \
     \
-    flutter-auto-with-logging \
+    flutter-auto-verbose-logs \
     \
     flutter-engine-sdk-dev \
     \
     flutter-gallery \
-    flutter-test-animated-background \
     flutter-test-texture-egl \
     \
     "
