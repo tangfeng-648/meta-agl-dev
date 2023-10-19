@@ -1,0 +1,32 @@
+From 29d93f244f5483062f163c366d31f6a1da5be05e Mon Sep 17 00:00:00 2001
+From: Joel Winarske <joel.winarske@gmail.com>
+Date: Tue, 6 Jun 2023 14:39:17 -0700
+Subject: [PATCH] The ivi-homescreen is using eglGetPlatformDisplay directly
+ that possible to use in EGL version is 1.5 or greater. On the other hand
+ R-CarH3/M3 is not supporting EGL version is 1.5, only a EGL version is 1.4. 
+ This situation cause build error in R-Car H3/M3.
+
+This patch fix that build error.
+
+Signed-off-by: Naoto Yamaguchi <naoto.yamaguchi@aisin.co.jp>
+---
+ shell/view/compositor_surface.cc | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/shell/view/compositor_surface.cc b/shell/view/compositor_surface.cc
+index 51b13c5..7991c3f 100644
+--- a/shell/view/compositor_surface.cc
++++ b/shell/view/compositor_surface.cc
+@@ -57,8 +57,7 @@ CompositorSurface::CompositorSurface(
+   auto parent_surface = window->GetBaseSurface();
+ 
+   if (type == CompositorSurface::egl) {
+-    m_wl.egl_display = eglGetPlatformDisplay(EGL_PLATFORM_WAYLAND_KHR,
+-                                             display->GetDisplay(), nullptr);
++    m_wl.egl_display = eglGetDisplay((NativeDisplayType)display->GetDisplay());
+     m_wl.egl_window = wl_egl_window_create(m_wl.surface, width, height);
+     assert(m_wl.egl_display);
+     assert(m_wl.egl_window);
+-- 
+2.41.0
+
