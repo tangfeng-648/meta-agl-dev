@@ -4,7 +4,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://../LICENSE;md5=fdebc354a9200f9dc847e624d4584ea9"
 
 SRC_URI += " \
-    git://github.com/malik727/snips-nlu-utils.git;protocol=https;branch=master \
+    git://github.com/snipsco/snips-nlu-utils.git;protocol=https;branch=master \
     "
 
 PV = "0.9.1+git${SRCPV}"

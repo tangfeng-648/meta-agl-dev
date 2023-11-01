@@ -1,0 +1,10 @@
+[Unit]
+Description=RASA Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/rasa run --enable-api -m /usr/share/nlu/rasa/models/ -p 51054
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

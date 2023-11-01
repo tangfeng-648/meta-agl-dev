@@ -6,12 +6,15 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=930bc50f846c55c70b79b78055ae3d9b"
 PYPI_PACKAGE = "rasa"
 
 SRC_URI += " \
+    file://rasa-service.service \
     file://0001-rasa-remove-group-from-poetry-as-its-not-supported.patch \
 "
 SRC_URI[md5sum] = "7aab346588a3056b54ff783357e4d081"
 SRC_URI[sha256sum] = "21e57a99bdec8d9f36f7828985c8e3fb3bf3b2c3c94a856d3006e0a68b41a399"
 
-inherit pypi python_poetry_core
+inherit pypi python_poetry_core systemd
+
+SYSTEMD_SERVICE:${PN} = "rasa-service.service"
 
 RDEPENDS:${PN} += " \
     python3-requests \
@@ -78,4 +81,10 @@ do_install:append() {
     # it causes conflicts.
     rm -f ${D}${libdir}/python3.10/site-packages/README.md
     rm -f ${D}${libdir}/python3.10/site-packages/LICENSE.txt
+
+    # Initialize our service definition
+    if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
+        install -d ${D}${systemd_system_unitdir}
+        install -m 0644 ${WORKDIR}/rasa-service.service ${D}${systemd_system_unitdir}
+    fi
 }

@@ -19,7 +19,8 @@ IMAGE_INSTALL:append = " \
     python3-vosk-api \ 
     python3-vosk-websocket-server \
     python3-sounddevice \
-    flutter-vosk-demo \
+    flutter-voiceassistant \
+    agl-service-voiceagent \
     "
 
 PREFERRED_PROVIDER_virtual/vosk-model ?= "vosk-model-small-en-us"

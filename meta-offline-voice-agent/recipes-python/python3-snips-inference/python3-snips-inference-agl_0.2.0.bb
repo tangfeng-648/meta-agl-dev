@@ -4,12 +4,11 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=ecab3ce0771d366e0f8e4ca058eb48e7"
 
 SRC_URI += " \
-    git://github.com/malik727/snips-inference-agl.git;protocol=https;branch=main \
+    git://gerrit.automotivelinux.org/gerrit/src/snips-inference-agl;protocol=https;branch=${AGL_BRANCH} \
     "
 
-PV = "0.2.0+git${SRCPV}"
+SRCREV = "${AUTOREV}"
 S = "${WORKDIR}/git"
-SRCREV = "6d45b8d814b1937251524dd8a1e8cac0d8cab5de"
 
 DEPENDS += " \
     python3-setuptools-native \

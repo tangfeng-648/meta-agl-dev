@@ -4,10 +4,9 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=2e01060a5557fe6a4b57f5ea6dc048d9"
 
 SRC_URI = " \
-    git://github.com/malik727/rasa-model-agl;protocol=https;branch=main \
+    git://gerrit.automotivelinux.org/gerrit/src/rasa-model-agl;protocol=https;branch=${AGL_BRANCH} \
 "
 
-PV = "1.0.0+git${SRCPV}"
 SRCREV = "${AUTOREV}"
 S = "${WORKDIR}/git"
 
