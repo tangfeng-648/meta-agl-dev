@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://README.md;md5=c912e5645ed908bc9570ba05c92b3723"
 
 inherit module
 
-SRC_URI = "git://git.virtualopensystems.com/virtio-loopback/loopback_driver.git;protocol=https;rev=aaa8c982c56837369aaca4c04f4b5499915dcf24;branch=epsilon-release-5.15"
+SRC_URI = "git://git.virtualopensystems.com/virtio-loopback/loopback_driver.git;protocol=https;rev=b94d81b014f322677036776e19bdf9d6fa61dd8e;branch=epsilon-release-5.15"
 
 S = "${WORKDIR}/git"
 
