@@ -29,6 +29,54 @@ This builds AGL demo image that includes Flutter runtime={debug,profile,release}
   * includes SSH server
   * live debugging/profiling with target via host
 
+## Useful Notes
+
+flutter-auto runs as user `agl-driver`.  After logging in as root you can delete password for `agl-driver`:
+```
+# passwd -d agl-driver
+```
+
+To track flutter-auto output:
+```
+# journalctl -ex -u flutter-homescreen -f
+```
+
+To view available Flutter programs in OS image:
+```
+ls -la /usr/share/flutter
+```
+
+To change Flutter program that runs on boot edit this file:
+```
+# vi /usr/lib/systemd/system/flutter-homescreen.service
+```
+
+To change device to run Gallery on reboot edit flutter-homescreen.service to:
+```
+ExecStart=/usr/bin/flutter-auto --b=/usr/share/flutter/gallery/${FLUTTER_VERSION}/${FLUTTER_RUNTIME} --j=/usr/share/flutter/flutter-homescreen.json --xdg-shell-app-id=homescreen
+```
+To enable experimental impeller support edit flutter-homescreen.service adding --enable-impeller:
+```
+ExecStart=/usr/bin/flutter-auto --b=/usr/share/flutter/gallery/${FLUTTER_VERSION}/${FLUTTER_RUNTIME} --j=/usr/share/flutter/flutter-homescreen.json --xdg-shell-app-id=homescreen --enable-impeller
+```
+
+After edits either run:
+```
+# systemctl daemon-reload
+# systemctl restart flutter-homescreen
+```
+or
+```
+# reboot
+```
+
+Collecting a stack trace for flutter-auto
+```
+# systemctl stop flutter-auto
+# export SPDLOG_LEVEL=trace
+# export XDG_RUNTIME_DIR=/run/user/1001/
+# gdb --args flutter-auto --b=/usr/share/flutter/gallery/<flutter version>/release/ --j=/usr/share/flutter/flutter-homescreen.json --xdg-shell-app-id=homescreen
+```
 
 ## Flutter Engine SDK
 
