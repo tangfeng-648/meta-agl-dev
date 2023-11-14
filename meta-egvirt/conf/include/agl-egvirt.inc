@@ -1,19 +1,12 @@
-# gstreamer1.0-plugins-bad contains:
-# * videoparsersbad plugin which contains h264parse element needed to demonstrate H.264 hardware decoding
-# * waylandsink plugin
-MACHINE_EXTRA_RDEPENDS:append = " \
-    kernel-module-virtio-video \
-    gstreamer1.0-plugins-bad \
-"
+REQUIRED_VERSION_libgpiod = "2.1"
 
-MACHINE_EXTRA_RDEPENDS:append = " \
-    kernel-module-virtio-can \
-"
+FEATURE_PACKAGES_virtio-loopback = " \
+     kernel-module-virtio-can \
+     kernel-module-virtio-loopback \
+     vhost-device-rng \
+     vhost-device-gpio \
+     vhost-device-can \
+     "
 
-# add driver for supporting vhost devices loopback (virtio-loopback)
-MACHINE_EXTRA_RDEPENDS:append = " \
-    virtio-loopback-driver \
-"
-
-IMAGE_INSTALL:append = " vhost-device-i2c vhost-device-rng vhost-device-vsock vhost-device-gpio "
+EXTRA_IMAGE_FEATURES += "virtio-loopback"
 
