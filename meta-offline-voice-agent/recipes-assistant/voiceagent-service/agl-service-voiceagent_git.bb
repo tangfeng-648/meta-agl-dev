@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=4202492ed9afcab3aaecc4a9ec32adb2"
 
 SRC_URI = " \
     file://agl-service-voiceagent.service \
-    git://gerrit.automotivelinux.org/gerrit/apps/agl-service-voiceagent;protocol=https;branch=${AGL_BRANCH}
+    git://gerrit.automotivelinux.org/gerrit/apps/agl-service-voiceagent;protocol=https;branch=${AGL_BRANCH} \
 "
 
 SRCREV = "${AUTOREV}"
