@@ -9,6 +9,7 @@ SRC_URI += " \
     file://0001-tests-fix-TESTSUITE_AT.patch \
     file://0002-tests-check-for-recently-fixed-bug.patch \
     file://0003-Exclude-VCS-directory-with-writing-from-an-archive.patch \
+    file://0004-disable-sparse05.patch \
 "
 
 inherit ptest
@@ -37,8 +38,3 @@ do_install_ptest() {
     sed -i "s#@PTEST_PATH@#${PTEST_PATH}#g" ${D}${PTEST_PATH}/run-ptest
 }
 # backport of yocto end
-
-# add for agl-test-framework
-do_install_ptest:append() {
-    sed -i "s/\$at_am_msg: \$at_desc/\$at_am_msg: \$at_desc_line/g" ${D}${PTEST_PATH}/tests/testsuite
-}

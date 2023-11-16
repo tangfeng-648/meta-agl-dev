@@ -1,0 +1,19 @@
+disable sparse05 test
+
+This case tests large files larger than 2 ^ 33 bytes.
+Skip it because there is not enough space.
+
+Signed-off-by: Qiu Tingting <qiutt@fujitsu.com>
+Upstream-Status: Inappropriate [AGL-Specific]
+
+diff -rNu a/testes/testsuite.at b/testes/testsuite.at
+--- a/tests/testsuite.at	2023-11-16 09:20:03.413394950 +0800
++++ b/tests/testsuite.at	2023-11-16 09:20:31.221395180 +0800
+@@ -439,7 +439,6 @@
+ m4_include([sparse02.at])
+ m4_include([sparse03.at])
+ m4_include([sparse04.at])
+-m4_include([sparse05.at])
+ m4_include([sparse06.at])
+ m4_include([sparse07.at])
+ m4_include([sparsemv.at])

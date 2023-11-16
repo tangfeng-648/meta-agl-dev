@@ -1,8 +1,14 @@
-tests: check for recently-fixed bug
+From 0f0722df45ec520d0dac7c9ad7e69165e9140931 Mon Sep 17 00:00:00 2001
+From: Paul Eggert <eggert@cs.ucla.edu>
+Date: Fri, 7 Oct 2022 15:22:07 -0700
+Subject: tests: check for recently-fixed bug
 
 * tests/exclude17.at: New file.
 
 Upstream-Status: Backport [https://git.savannah.gnu.org/cgit/tar.git/commit/?id=0f0722df45ec520d0dac7c9ad7e69165e9140931]
+
+Signed-off-by: Qiu Tingting <qiutt@fujitsu.com>
+
 ---
  tests/exclude17.at | 35 +++++++++++++++++++++++++++++++++++
  1 files changed, 35 insertions(+)
