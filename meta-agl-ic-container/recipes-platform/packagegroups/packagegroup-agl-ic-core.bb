@@ -13,7 +13,6 @@ PACKAGES = "\
     packagegroup-agl-ic-core \
 "
 RDEPENDS:${PN} += "\
-    libclusteripc \
-    libclusterapi \
+    cluster-service \
     librefop \
 "
