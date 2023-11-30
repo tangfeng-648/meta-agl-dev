@@ -7,7 +7,6 @@ require remote-virtio-gpu.inc
 
 SRC_URI:append = " \
     file://0001-Remove-some-rvgpu-command-options.patch \
-    file://0002-Add-agl-shell-desktop-and-xdg-shell-support.patch \
 "
 
 S = "${WORKDIR}/git"

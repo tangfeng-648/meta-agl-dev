@@ -1,7 +1,7 @@
-From 0fc1cf03f76d21cec5b859ff46bee146cd4e52f7 Mon Sep 17 00:00:00 2001
-From: murakami <murakami.kenta002@jp.panasonic.jp>
-Date: Fri, 28 Jul 2023 12:09:35 +0900
-Subject: [PATCH 1/2] Remove some rvgpu command options
+From fb9d1134906356b20ac698fca64a3c7de0dd111c Mon Sep 17 00:00:00 2001
+From: Fumiya Kohzu <kohzu.fumiya@jp.panasonic.com>
+Date: Mon, 20 Nov 2023 19:28:19 +0900
+Subject: [PATCH] Remove some rvgpu command options
 
 Remove vsync and card_index option supports from remote-virtio-gpu,
 because the kernel needs to be patched to run those options in
@@ -16,7 +16,7 @@ Upstream-Status: Inappropriate [embedded specific]
  4 files changed, 5 insertions(+), 36 deletions(-)
 
 diff --git a/include/rvgpu-proxy/gpu/rvgpu-gpu-device.h b/include/rvgpu-proxy/gpu/rvgpu-gpu-device.h
-index eb34b6a..76d747a 100644
+index 72adb07..29dc157 100644
 --- a/include/rvgpu-proxy/gpu/rvgpu-gpu-device.h
 +++ b/include/rvgpu-proxy/gpu/rvgpu-gpu-device.h
 @@ -35,7 +35,6 @@ struct gpu_device;
@@ -28,10 +28,10 @@ index eb34b6a..76d747a 100644
  	unsigned int mem_limit;
  	unsigned long framerate;
 diff --git a/src/rvgpu-proxy/gpu/rvgpu-gpu-device.c b/src/rvgpu-proxy/gpu/rvgpu-gpu-device.c
-index 947e81a..71f62ca 100644
+index 0db2d7f..6b84a0a 100644
 --- a/src/rvgpu-proxy/gpu/rvgpu-gpu-device.c
 +++ b/src/rvgpu-proxy/gpu/rvgpu-gpu-device.c
-@@ -528,7 +528,6 @@ struct gpu_device *gpu_device_init(int lo_fd, int efd, uint32_t cidx,
+@@ -655,7 +655,6 @@ struct gpu_device *gpu_device_init(int lo_fd, int efd, int capset,
  	if (capset != -1)
  		gpu_capset_init(g, capset);
  
@@ -39,7 +39,7 @@ index 947e81a..71f62ca 100644
  	info.config = (__u8 *)&g->config;
  	info.config_kick = g->config_fd;
  
-@@ -939,8 +938,6 @@ static void gpu_device_trigger_vsync(struct gpu_device *g,
+@@ -1013,8 +1012,6 @@ static void gpu_device_trigger_vsync(struct gpu_device *g,
  		return;
  
  	hdr->flags |= VIRTIO_GPU_FLAG_VSYNC;
@@ -49,7 +49,7 @@ index 947e81a..71f62ca 100644
  
  	if ((!vsync_ts.tv_sec) && (!vsync_ts.tv_nsec)) {
 diff --git a/src/rvgpu-proxy/rvgpu-proxy.c b/src/rvgpu-proxy/rvgpu-proxy.c
-index 6ff4e19..d082b72 100644
+index b9958b8..b78ed1c 100644
 --- a/src/rvgpu-proxy/rvgpu-proxy.c
 +++ b/src/rvgpu-proxy/rvgpu-proxy.c
 @@ -47,7 +47,6 @@ static void usage(void)
@@ -110,10 +110,10 @@ index 6ff4e19..d082b72 100644
  			params.mem_limit = (unsigned int)sanity_strtonum(
  				optarg, VMEM_MIN_MB, VMEM_MAX_MB, &errstr);
 diff --git a/src/rvgpu-renderer/rvgpu-renderer.c b/src/rvgpu-renderer/rvgpu-renderer.c
-index 7166fb9..3e74289 100644
+index 2757827..b21a168 100644
 --- a/src/rvgpu-renderer/rvgpu-renderer.c
 +++ b/src/rvgpu-renderer/rvgpu-renderer.c
-@@ -52,7 +52,6 @@ static void usage(void)
+@@ -53,7 +53,6 @@ static void usage(void)
  	info("\t-f\t\tRun in fullscreen mode\n");
  	info("\t-p port\t\tport for listening (default: %u)\n",
  	     RVGPU_DEFAULT_PORT);
@@ -121,7 +121,7 @@ index 7166fb9..3e74289 100644
  	info("\t-h\t\tShow this message\n");
  
  	info("\nNote:\n");
-@@ -185,12 +184,12 @@ int main(int argc, char **argv)
+@@ -186,13 +185,13 @@ int main(int argc, char **argv)
  	unsigned int res_id, scanout;
  	uint16_t port_nr = RVGPU_DEFAULT_PORT;
  	FILE *input_stream = stdout;
@@ -130,13 +130,14 @@ index 7166fb9..3e74289 100644
  	     user_specified_scanouts = false;
  
  	memset(sp, 0, sizeof(sp));
+ 	memset(&pp, 0, sizeof(pp));
  
 -	while ((opt = getopt(argc, argv, "afhvi:c:s:S:b:B:p:g:")) != -1) {
 +	while ((opt = getopt(argc, argv, "afhi:c:s:S:b:B:p:g:")) != -1) {
  		switch (opt) {
  		case 'a':
  			translucent = true;
-@@ -269,9 +268,6 @@ int main(int argc, char **argv)
+@@ -271,9 +270,6 @@ int main(int argc, char **argv)
  				     errstr);
  			}
  			break;
@@ -146,7 +147,7 @@ index 7166fb9..3e74289 100644
  		case 'h':
  			usage();
  			exit(EXIT_SUCCESS);
-@@ -309,7 +305,7 @@ int main(int argc, char **argv)
+@@ -311,7 +307,7 @@ int main(int argc, char **argv)
  	}
  
  	while ((res_id = rvgpu_pr_dispatch(pr))) {
@@ -156,5 +157,5 @@ index 7166fb9..3e74289 100644
  
  	if (pp.capset)
 -- 
-2.17.1
+2.25.1
 

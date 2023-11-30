@@ -73,22 +73,30 @@ ifconfig <your environment> 192.168.0.10 netmask 255.255.255.0
 Prepare two images, one as the Sender and the other as the Receiver.
 It is necessary for the Sender and Receiver to be within the same network.
 
-**Receiver side**
+**Receiver side**  
 ```
 $ export XDG_RUNTIME_DIR=/run/user/<your_UID>
-$ rvgpu-renderer -b 1080x1500@0,0 -p <Port_Number> &
+$ rvgpu-renderer -b <your_Area>@0,0 -p <Port_Number> &
 ```
+
 Replace the placeholders with the appropriate values:
 - `<your_UID>`: Specify according to your environment, for example:1001
+- `<your_Area>`: Enter an usable area for example: 1080x1488  
+ With the following command, you can know the usable area.
+  ```
+  $ journalctl | grep -i "usable area"
+  # Example Output:
+  Nov 29 11:42:53 qemux86-64 agl-compositor[259]: [11:42:53.166] Usable area: 1080x1488+0,216
+  ```
 - `<Port_Number>`: Enter an available port number, for example: 55555
+
 
 **Sender side**  
 Create the following shell script **run_remote_app.sh** in any `<WORKDIR>` for a smooth experience.
 ```
 #!/bin/bash
 
-mkdir -p /run/user/<New_UID>
-export XDG_RUNTIME_DIR=/run/user/<New_UID>
+export XDG_RUNTIME_DIR=/tmp
 export LD_LIBRARY_PATH=/usr/lib/mesa-virtio
 
 # -------------
@@ -96,36 +104,30 @@ export LD_LIBRARY_PATH=/usr/lib/mesa-virtio
 # -------------
 $@
 ```
-Replace the placeholders with the appropriate values:
-- `<New_UID>`: You can assign any UID, for example: 0
 
 Save the file and run the following to start weston.
 
 ```
-$ rvgpu-proxy -s 1080x1500@0,0 -n <IP_address_of_Receiver>:<Port_Number> &
+$ rvgpu-proxy -s 1080x1488@0,0 -n <IP_address_of_Receiver>:<Port_Number> &
 $ <WORKDIR>/run_remote_app.sh weston --backend drm-backend.so -Swayland-0 --seat=seat_virtual -i 0 &
 ```  
 Replace the placeholders with the appropriate values:
 - `<Port_Number>`: Port set in the renderer.
 
+
 After completing these steps, the Weston screen from the Sender will be transferred and displayed on the Receiver using rvgpu-proxy and rvgpu-renderer. You can verify that everything is functioning properly by launching wayland applications on the Sender side, such as:
 ```
-$ <WORKDIR>/run_remote_app.sh weston-simple-egl -f
+$ weston-simple-egl -f
 ``` 
 
 You can also verify the touch or keyboard operation support of the RVGPU by using app such as 
 ```
-$ <WORKDIR>/run_remote_app.sh weston-smoke
-$ <WORKDIR>/run_remote_app.sh weston-editor
+$ weston-smoke
+$ weston-editor
 ```
 **Note**: There are known issues with mouse, such as the cursor becoming invisible and occasional flickering of a green screen.
 
-**Appendix**:  
-- You can freely change the display position of the transferred surface in rvgpu-renderer by w option, such as
-  ```
-  rvgpu-renderer -b 1080x1500@0,0 -p <Port_Number> -w <x>,<y>
-  ```
-  The coordinates `<x>,<y> = 0,0` represent the top-left corner, and the default position is `0,250`.
-
+**Appendix**  
 - By building the RVGPU on Ubuntu, it is possible to enable bidirectional remote rendering between the agl-demo-platform and Ubuntu.  
-  For the build procedure on Ubuntu, see the following URL: https://github.com/unified-hmi/remote-virtio-gpu
+For the build procedure on Ubuntu, see the following URL: https://github.com/unified-hmi/remote-virtio-gpu
+   
