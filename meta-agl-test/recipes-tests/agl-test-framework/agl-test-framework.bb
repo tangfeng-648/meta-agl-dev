@@ -7,7 +7,7 @@ PN = 'agl-test-framework'
 PV = '1'
 
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/src/agl-test-framework;protocol=https;branch=master"
-SRCREV = "ca7e609b502a3ad9db2c0dc5a86885f784c952b5"
+SRCREV = "c62eef089e10114250c6331530ace7011c522488"
 
 S = "${WORKDIR}/git"
 
@@ -59,6 +59,7 @@ FRAMEWORK_INSTALL_LIST = " \
     openssl \
     python3 \
     stress_ng \
+    tar \
     xz \
     zlib \
 "
@@ -172,6 +173,7 @@ FILES:${PN}-standard = " \
      /usr/AGL/agl-test/tests/LTP/cve/* \
      /usr/AGL/agl-test/tests/LTP/posix_conformance_tests/* \
      /usr/AGL/agl-test/tests/openssl/* \
+     /usr/AGL/agl-test/tests/tar/* \
 "
 
 # Filter for extreme mode
