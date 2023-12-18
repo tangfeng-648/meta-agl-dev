@@ -6,6 +6,7 @@ FEATURE_PACKAGES_virtio-loopback = " \
      vhost-device-rng \
      vhost-device-gpio \
      vhost-device-can \
+     vhost-device-console \
      "
 
 EXTRA_IMAGE_FEATURES += "virtio-loopback"
