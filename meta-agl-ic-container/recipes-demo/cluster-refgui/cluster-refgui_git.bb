@@ -13,7 +13,7 @@ SRC_URI = "git://git.automotivelinux.org/src/cluster-refgui;protocol=https;branc
            file://cluster.service \
            file://cluster \
 "
-SRCREV = "a16c6201be94a57eb8151a91699084d99694877c"
+SRCREV = "cbb63f0e45340f6dd2cc9f360ed4da15c745186f"
 
 S = "${WORKDIR}/git"
 
