@@ -4,6 +4,7 @@ LICENSE = "MIT"
 require guest-image-minimal.bb
 
 IMAGE_INSTALL += " \
+    packagegroup-agl-ic-core \
     weston \
     weston-init-guest \
     weston-ini-conf-guest \
